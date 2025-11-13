@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Inventaris.View;
+using SupportIT.View;
 using Master.Controller;
 using Master.View;
 
-namespace Inventaris
+namespace SupportIT
 {
     static class Program
     {

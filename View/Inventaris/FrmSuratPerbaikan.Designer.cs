@@ -30,44 +30,28 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmSuratPerbaikan));
             this.mainMenu = new System.Windows.Forms.ToolStrip();
-            this.btnTambah = new System.Windows.Forms.ToolStripButton();
-            this.btnUbah = new System.Windows.Forms.ToolStripButton();
-            this.btnHapus = new System.Windows.Forms.ToolStripButton();
+            this.btnNew = new System.Windows.Forms.ToolStripButton();
+            this.btnEdit = new System.Windows.Forms.ToolStripButton();
+            this.btnDelete = new System.Windows.Forms.ToolStripButton();
             this.btnRefresh = new System.Windows.Forms.ToolStripButton();
             this.btnHistory = new System.Windows.Forms.ToolStripButton();
-            this.tstButtonCetak = new System.Windows.Forms.ToolStripButton();
+            this.btnPrint = new System.Windows.Forms.ToolStripButton();
             this.btnExport = new System.Windows.Forms.ToolStripButton();
             this.gbFilter = new System.Windows.Forms.GroupBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtSearch = new System.Windows.Forms.TextBox();
+            this.btnFilter = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.cbKodePT = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.cbPIC = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.cbStatus = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dtpTo = new System.Windows.Forms.DateTimePicker();
             this.dtpFrom = new System.Windows.Forms.DateTimePicker();
-            this.label2 = new System.Windows.Forms.Label();
-            this.cbStatus = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.cbPIC = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.cbKodePT = new System.Windows.Forms.ComboBox();
-            this.btnFilter = new System.Windows.Forms.Button();
-            this.txtSearch = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.rightpanel = new System.Windows.Forms.Panel();
-            this.mainpanel = new System.Windows.Forms.Panel();
-            this.gbheader = new System.Windows.Forms.GroupBox();
-            this.gnDetail = new System.Windows.Forms.GroupBox();
-            this.dgvSuratPerbaikan = new System.Windows.Forms.DataGridView();
-            this.dgvDetailSP = new System.Windows.Forms.DataGridView();
-            this.lstTimeline = new System.Windows.Forms.ListBox();
-            this.lblNoSP = new System.Windows.Forms.Label();
-            this.lblStatus = new System.Windows.Forms.Label();
-            this.lblPIC = new System.Windows.Forms.Label();
-            this.lblKodePT = new System.Windows.Forms.Label();
-            this.lblKepada = new System.Windows.Forms.Label();
-            this.lblLokasi = new System.Windows.Forms.Label();
-            this.lblCreatedAt = new System.Windows.Forms.Label();
-            this.lblCreatedBy = new System.Windows.Forms.Label();
-            this.lblUpdatedBy = new System.Windows.Forms.Label();
-            this.lblUpdatedAt = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -78,14 +62,30 @@
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
+            this.lblUpdatedBy = new System.Windows.Forms.Label();
+            this.lblUpdatedAt = new System.Windows.Forms.Label();
+            this.lblCreatedBy = new System.Windows.Forms.Label();
+            this.lblCreatedAt = new System.Windows.Forms.Label();
+            this.lblLokasi = new System.Windows.Forms.Label();
+            this.lblKepada = new System.Windows.Forms.Label();
+            this.lblKodePT = new System.Windows.Forms.Label();
+            this.lblPIC = new System.Windows.Forms.Label();
+            this.lblStatus = new System.Windows.Forms.Label();
+            this.lblNoSP = new System.Windows.Forms.Label();
+            this.lstTimeline = new System.Windows.Forms.ListBox();
+            this.mainpanel = new System.Windows.Forms.Panel();
+            this.gnDetail = new System.Windows.Forms.GroupBox();
+            this.dgvDetailSP = new System.Windows.Forms.DataGridView();
+            this.gbheader = new System.Windows.Forms.GroupBox();
+            this.dgvSuratPerbaikan = new System.Windows.Forms.DataGridView();
             this.mainMenu.SuspendLayout();
             this.gbFilter.SuspendLayout();
             this.rightpanel.SuspendLayout();
             this.mainpanel.SuspendLayout();
-            this.gbheader.SuspendLayout();
             this.gnDetail.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvSuratPerbaikan)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetailSP)).BeginInit();
+            this.gbheader.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvSuratPerbaikan)).BeginInit();
             this.SuspendLayout();
             // 
             // mainMenu
@@ -94,12 +94,12 @@
             this.mainMenu.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.mainMenu.ImageScalingSize = new System.Drawing.Size(10, 10);
             this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnTambah,
-            this.btnUbah,
-            this.btnHapus,
+            this.btnNew,
+            this.btnEdit,
+            this.btnDelete,
             this.btnRefresh,
             this.btnHistory,
-            this.tstButtonCetak,
+            this.btnPrint,
             this.btnExport});
             this.mainMenu.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
@@ -108,44 +108,46 @@
             this.mainMenu.Size = new System.Drawing.Size(1342, 54);
             this.mainMenu.TabIndex = 3;
             // 
-            // btnTambah
+            // btnNew
             // 
-            this.btnTambah.ForeColor = System.Drawing.Color.Black;
-            this.btnTambah.Image = ((System.Drawing.Image)(resources.GetObject("btnTambah.Image")));
-            this.btnTambah.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnTambah.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnTambah.Name = "btnTambah";
-            this.btnTambah.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.btnTambah.Size = new System.Drawing.Size(64, 51);
-            this.btnTambah.Tag = "Tambah";
-            this.btnTambah.Text = "&Tambah";
-            this.btnTambah.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnNew.ForeColor = System.Drawing.Color.Black;
+            this.btnNew.Image = ((System.Drawing.Image)(resources.GetObject("btnNew.Image")));
+            this.btnNew.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnNew.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnNew.Name = "btnNew";
+            this.btnNew.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.btnNew.Size = new System.Drawing.Size(64, 51);
+            this.btnNew.Tag = "Tambah";
+            this.btnNew.Text = "&Tambah";
+            this.btnNew.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
-            // btnUbah
+            // btnEdit
             // 
-            this.btnUbah.ForeColor = System.Drawing.Color.Black;
-            this.btnUbah.Image = ((System.Drawing.Image)(resources.GetObject("btnUbah.Image")));
-            this.btnUbah.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnUbah.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnUbah.Name = "btnUbah";
-            this.btnUbah.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.btnUbah.Size = new System.Drawing.Size(49, 51);
-            this.btnUbah.Tag = "Ubah";
-            this.btnUbah.Text = "&Ubah";
-            this.btnUbah.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnEdit.ForeColor = System.Drawing.Color.Black;
+            this.btnEdit.Image = ((System.Drawing.Image)(resources.GetObject("btnEdit.Image")));
+            this.btnEdit.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.btnEdit.Size = new System.Drawing.Size(49, 51);
+            this.btnEdit.Tag = "Ubah";
+            this.btnEdit.Text = "&Ubah";
+            this.btnEdit.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
-            // btnHapus
+            // btnDelete
             // 
-            this.btnHapus.ForeColor = System.Drawing.Color.Black;
-            this.btnHapus.Image = ((System.Drawing.Image)(resources.GetObject("btnHapus.Image")));
-            this.btnHapus.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnHapus.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnHapus.Name = "btnHapus";
-            this.btnHapus.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.btnHapus.Size = new System.Drawing.Size(55, 51);
-            this.btnHapus.Tag = "Hapus";
-            this.btnHapus.Text = "&Hapus";
-            this.btnHapus.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnDelete.ForeColor = System.Drawing.Color.Black;
+            this.btnDelete.Image = ((System.Drawing.Image)(resources.GetObject("btnDelete.Image")));
+            this.btnDelete.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.btnDelete.Size = new System.Drawing.Size(55, 51);
+            this.btnDelete.Tag = "Hapus";
+            this.btnDelete.Text = "&Hapus";
+            this.btnDelete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             // 
             // btnRefresh
             // 
@@ -174,15 +176,15 @@
             this.btnHistory.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnHistory.ToolTipText = "History";
             // 
-            // tstButtonCetak
+            // btnPrint
             // 
-            this.tstButtonCetak.Image = ((System.Drawing.Image)(resources.GetObject("tstButtonCetak.Image")));
-            this.tstButtonCetak.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.tstButtonCetak.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tstButtonCetak.Name = "tstButtonCetak";
-            this.tstButtonCetak.Size = new System.Drawing.Size(41, 51);
-            this.tstButtonCetak.Text = "Cetak";
-            this.tstButtonCetak.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnPrint.Image = ((System.Drawing.Image)(resources.GetObject("btnPrint.Image")));
+            this.btnPrint.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnPrint.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(41, 51);
+            this.btnPrint.Text = "Cetak";
+            this.btnPrint.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             // 
             // btnExport
             // 
@@ -221,6 +223,112 @@
             this.gbFilter.TabStop = false;
             this.gbFilter.Text = "FILTER";
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(565, 20);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(51, 13);
+            this.label6.TabIndex = 43;
+            this.label6.Text = "SEARCH";
+            // 
+            // txtSearch
+            // 
+            this.txtSearch.Location = new System.Drawing.Point(559, 40);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(293, 20);
+            this.txtSearch.TabIndex = 42;
+            // 
+            // btnFilter
+            // 
+            this.btnFilter.Location = new System.Drawing.Point(858, 37);
+            this.btnFilter.Name = "btnFilter";
+            this.btnFilter.Size = new System.Drawing.Size(75, 23);
+            this.btnFilter.TabIndex = 41;
+            this.btnFilter.Text = "FILTER";
+            this.btnFilter.UseVisualStyleBackColor = true;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(465, 20);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(54, 13);
+            this.label5.TabIndex = 40;
+            this.label5.Text = "KODE PT";
+            // 
+            // cbKodePT
+            // 
+            this.cbKodePT.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbKodePT.FormattingEnabled = true;
+            this.cbKodePT.Items.AddRange(new object[] {
+            "ALL",
+            "DRAFT",
+            "DIKIRIM",
+            "DITERIMA",
+            "SELESAI"});
+            this.cbKodePT.Location = new System.Drawing.Point(465, 39);
+            this.cbKodePT.Name = "cbKodePT";
+            this.cbKodePT.Size = new System.Drawing.Size(88, 21);
+            this.cbKodePT.TabIndex = 39;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(371, 20);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(24, 13);
+            this.label4.TabIndex = 38;
+            this.label4.Text = "PIC";
+            // 
+            // cbPIC
+            // 
+            this.cbPIC.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbPIC.FormattingEnabled = true;
+            this.cbPIC.Items.AddRange(new object[] {
+            "ALL",
+            "DRAFT",
+            "DIKIRIM",
+            "DITERIMA",
+            "SELESAI"});
+            this.cbPIC.Location = new System.Drawing.Point(371, 39);
+            this.cbPIC.Name = "cbPIC";
+            this.cbPIC.Size = new System.Drawing.Size(88, 21);
+            this.cbPIC.TabIndex = 37;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(277, 22);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(50, 13);
+            this.label3.TabIndex = 36;
+            this.label3.Text = "STATUS";
+            // 
+            // cbStatus
+            // 
+            this.cbStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbStatus.FormattingEnabled = true;
+            this.cbStatus.Items.AddRange(new object[] {
+            "ALL",
+            "DRAFT",
+            "DIKIRIM",
+            "DIPROSES",
+            "SELESAI"});
+            this.cbStatus.Location = new System.Drawing.Point(277, 41);
+            this.cbStatus.Name = "cbStatus";
+            this.cbStatus.Size = new System.Drawing.Size(88, 21);
+            this.cbStatus.TabIndex = 35;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 42);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(60, 13);
+            this.label2.TabIndex = 34;
+            this.label2.Text = "Sampai Tgl";
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -247,112 +355,6 @@
             this.dtpFrom.Name = "dtpFrom";
             this.dtpFrom.Size = new System.Drawing.Size(200, 20);
             this.dtpFrom.TabIndex = 31;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 42);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(60, 13);
-            this.label2.TabIndex = 34;
-            this.label2.Text = "Sampai Tgl";
-            // 
-            // cbStatus
-            // 
-            this.cbStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbStatus.FormattingEnabled = true;
-            this.cbStatus.Items.AddRange(new object[] {
-            "ALL",
-            "DRAFT",
-            "DIKIRIM",
-            "DITERIMA",
-            "SELESAI"});
-            this.cbStatus.Location = new System.Drawing.Point(277, 41);
-            this.cbStatus.Name = "cbStatus";
-            this.cbStatus.Size = new System.Drawing.Size(88, 21);
-            this.cbStatus.TabIndex = 35;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(277, 22);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(50, 13);
-            this.label3.TabIndex = 36;
-            this.label3.Text = "STATUS";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(371, 20);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(24, 13);
-            this.label4.TabIndex = 38;
-            this.label4.Text = "PIC";
-            // 
-            // cbPIC
-            // 
-            this.cbPIC.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbPIC.FormattingEnabled = true;
-            this.cbPIC.Items.AddRange(new object[] {
-            "ALL",
-            "DRAFT",
-            "DIKIRIM",
-            "DITERIMA",
-            "SELESAI"});
-            this.cbPIC.Location = new System.Drawing.Point(371, 39);
-            this.cbPIC.Name = "cbPIC";
-            this.cbPIC.Size = new System.Drawing.Size(88, 21);
-            this.cbPIC.TabIndex = 37;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(465, 20);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(54, 13);
-            this.label5.TabIndex = 40;
-            this.label5.Text = "KODE PT";
-            // 
-            // cbKodePT
-            // 
-            this.cbKodePT.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbKodePT.FormattingEnabled = true;
-            this.cbKodePT.Items.AddRange(new object[] {
-            "ALL",
-            "DRAFT",
-            "DIKIRIM",
-            "DITERIMA",
-            "SELESAI"});
-            this.cbKodePT.Location = new System.Drawing.Point(465, 39);
-            this.cbKodePT.Name = "cbKodePT";
-            this.cbKodePT.Size = new System.Drawing.Size(88, 21);
-            this.cbKodePT.TabIndex = 39;
-            // 
-            // btnFilter
-            // 
-            this.btnFilter.Location = new System.Drawing.Point(858, 37);
-            this.btnFilter.Name = "btnFilter";
-            this.btnFilter.Size = new System.Drawing.Size(75, 23);
-            this.btnFilter.TabIndex = 41;
-            this.btnFilter.Text = "FILTER";
-            this.btnFilter.UseVisualStyleBackColor = true;
-            // 
-            // txtSearch
-            // 
-            this.txtSearch.Location = new System.Drawing.Point(559, 40);
-            this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(293, 20);
-            this.txtSearch.TabIndex = 42;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(565, 20);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(51, 13);
-            this.label6.TabIndex = 43;
-            this.label6.Text = "SEARCH";
             // 
             // rightpanel
             // 
@@ -383,156 +385,6 @@
             this.rightpanel.Padding = new System.Windows.Forms.Padding(3);
             this.rightpanel.Size = new System.Drawing.Size(333, 428);
             this.rightpanel.TabIndex = 5;
-            // 
-            // mainpanel
-            // 
-            this.mainpanel.Controls.Add(this.gnDetail);
-            this.mainpanel.Controls.Add(this.gbheader);
-            this.mainpanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainpanel.Location = new System.Drawing.Point(0, 132);
-            this.mainpanel.Name = "mainpanel";
-            this.mainpanel.Padding = new System.Windows.Forms.Padding(3);
-            this.mainpanel.Size = new System.Drawing.Size(1009, 428);
-            this.mainpanel.TabIndex = 6;
-            // 
-            // gbheader
-            // 
-            this.gbheader.Controls.Add(this.dgvSuratPerbaikan);
-            this.gbheader.Dock = System.Windows.Forms.DockStyle.Top;
-            this.gbheader.Location = new System.Drawing.Point(3, 3);
-            this.gbheader.Name = "gbheader";
-            this.gbheader.Size = new System.Drawing.Size(1003, 281);
-            this.gbheader.TabIndex = 0;
-            this.gbheader.TabStop = false;
-            this.gbheader.Text = "SURAT PERBAIKAN";
-            // 
-            // gnDetail
-            // 
-            this.gnDetail.Controls.Add(this.dgvDetailSP);
-            this.gnDetail.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gnDetail.Location = new System.Drawing.Point(3, 284);
-            this.gnDetail.Name = "gnDetail";
-            this.gnDetail.Size = new System.Drawing.Size(1003, 141);
-            this.gnDetail.TabIndex = 1;
-            this.gnDetail.TabStop = false;
-            this.gnDetail.Text = "DETAIL SURAT PERBAIKAN";
-            // 
-            // dgvSuratPerbaikan
-            // 
-            this.dgvSuratPerbaikan.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvSuratPerbaikan.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvSuratPerbaikan.Location = new System.Drawing.Point(3, 16);
-            this.dgvSuratPerbaikan.Name = "dgvSuratPerbaikan";
-            this.dgvSuratPerbaikan.Size = new System.Drawing.Size(997, 262);
-            this.dgvSuratPerbaikan.TabIndex = 0;
-            // 
-            // dgvDetailSP
-            // 
-            this.dgvDetailSP.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDetailSP.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvDetailSP.Location = new System.Drawing.Point(3, 16);
-            this.dgvDetailSP.Name = "dgvDetailSP";
-            this.dgvDetailSP.Size = new System.Drawing.Size(997, 122);
-            this.dgvDetailSP.TabIndex = 0;
-            // 
-            // lstTimeline
-            // 
-            this.lstTimeline.FormattingEnabled = true;
-            this.lstTimeline.Location = new System.Drawing.Point(6, 258);
-            this.lstTimeline.Name = "lstTimeline";
-            this.lstTimeline.Size = new System.Drawing.Size(315, 160);
-            this.lstTimeline.TabIndex = 0;
-            // 
-            // lblNoSP
-            // 
-            this.lblNoSP.AutoSize = true;
-            this.lblNoSP.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNoSP.Location = new System.Drawing.Point(86, 19);
-            this.lblNoSP.Name = "lblNoSP";
-            this.lblNoSP.Size = new System.Drawing.Size(41, 13);
-            this.lblNoSP.TabIndex = 44;
-            this.lblNoSP.Text = "NOSP";
-            // 
-            // lblStatus
-            // 
-            this.lblStatus.AutoSize = true;
-            this.lblStatus.Location = new System.Drawing.Point(86, 41);
-            this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(37, 13);
-            this.lblStatus.TabIndex = 44;
-            this.lblStatus.Text = "Status";
-            // 
-            // lblPIC
-            // 
-            this.lblPIC.AutoSize = true;
-            this.lblPIC.Location = new System.Drawing.Point(86, 63);
-            this.lblPIC.Name = "lblPIC";
-            this.lblPIC.Size = new System.Drawing.Size(24, 13);
-            this.lblPIC.TabIndex = 45;
-            this.lblPIC.Text = "PIC";
-            // 
-            // lblKodePT
-            // 
-            this.lblKodePT.AutoSize = true;
-            this.lblKodePT.Location = new System.Drawing.Point(86, 85);
-            this.lblKodePT.Name = "lblKodePT";
-            this.lblKodePT.Size = new System.Drawing.Size(46, 13);
-            this.lblKodePT.TabIndex = 46;
-            this.lblKodePT.Text = "KodePT";
-            // 
-            // lblKepada
-            // 
-            this.lblKepada.AutoSize = true;
-            this.lblKepada.Location = new System.Drawing.Point(86, 108);
-            this.lblKepada.Name = "lblKepada";
-            this.lblKepada.Size = new System.Drawing.Size(44, 13);
-            this.lblKepada.TabIndex = 47;
-            this.lblKepada.Text = "Kepada";
-            // 
-            // lblLokasi
-            // 
-            this.lblLokasi.AutoSize = true;
-            this.lblLokasi.Location = new System.Drawing.Point(86, 131);
-            this.lblLokasi.Name = "lblLokasi";
-            this.lblLokasi.Size = new System.Drawing.Size(38, 13);
-            this.lblLokasi.TabIndex = 48;
-            this.lblLokasi.Text = "Lokasi";
-            // 
-            // lblCreatedAt
-            // 
-            this.lblCreatedAt.AutoSize = true;
-            this.lblCreatedAt.Location = new System.Drawing.Point(86, 153);
-            this.lblCreatedAt.Name = "lblCreatedAt";
-            this.lblCreatedAt.Size = new System.Drawing.Size(57, 13);
-            this.lblCreatedAt.TabIndex = 49;
-            this.lblCreatedAt.Text = "Created At";
-            // 
-            // lblCreatedBy
-            // 
-            this.lblCreatedBy.AutoSize = true;
-            this.lblCreatedBy.Location = new System.Drawing.Point(86, 175);
-            this.lblCreatedBy.Name = "lblCreatedBy";
-            this.lblCreatedBy.Size = new System.Drawing.Size(59, 13);
-            this.lblCreatedBy.TabIndex = 50;
-            this.lblCreatedBy.Text = "Created By";
-            // 
-            // lblUpdatedBy
-            // 
-            this.lblUpdatedBy.AutoSize = true;
-            this.lblUpdatedBy.Location = new System.Drawing.Point(86, 219);
-            this.lblUpdatedBy.Name = "lblUpdatedBy";
-            this.lblUpdatedBy.Size = new System.Drawing.Size(63, 13);
-            this.lblUpdatedBy.TabIndex = 52;
-            this.lblUpdatedBy.Text = "Updated By";
-            // 
-            // lblUpdatedAt
-            // 
-            this.lblUpdatedAt.AutoSize = true;
-            this.lblUpdatedAt.Location = new System.Drawing.Point(86, 197);
-            this.lblUpdatedAt.Name = "lblUpdatedAt";
-            this.lblUpdatedAt.Size = new System.Drawing.Size(61, 13);
-            this.lblUpdatedAt.TabIndex = 51;
-            this.lblUpdatedAt.Text = "Updated At";
             // 
             // label7
             // 
@@ -625,6 +477,156 @@
             this.label16.TabIndex = 54;
             this.label16.Text = "NOSP";
             // 
+            // lblUpdatedBy
+            // 
+            this.lblUpdatedBy.AutoSize = true;
+            this.lblUpdatedBy.Location = new System.Drawing.Point(86, 219);
+            this.lblUpdatedBy.Name = "lblUpdatedBy";
+            this.lblUpdatedBy.Size = new System.Drawing.Size(63, 13);
+            this.lblUpdatedBy.TabIndex = 52;
+            this.lblUpdatedBy.Text = "Updated By";
+            // 
+            // lblUpdatedAt
+            // 
+            this.lblUpdatedAt.AutoSize = true;
+            this.lblUpdatedAt.Location = new System.Drawing.Point(86, 197);
+            this.lblUpdatedAt.Name = "lblUpdatedAt";
+            this.lblUpdatedAt.Size = new System.Drawing.Size(61, 13);
+            this.lblUpdatedAt.TabIndex = 51;
+            this.lblUpdatedAt.Text = "Updated At";
+            // 
+            // lblCreatedBy
+            // 
+            this.lblCreatedBy.AutoSize = true;
+            this.lblCreatedBy.Location = new System.Drawing.Point(86, 175);
+            this.lblCreatedBy.Name = "lblCreatedBy";
+            this.lblCreatedBy.Size = new System.Drawing.Size(59, 13);
+            this.lblCreatedBy.TabIndex = 50;
+            this.lblCreatedBy.Text = "Created By";
+            // 
+            // lblCreatedAt
+            // 
+            this.lblCreatedAt.AutoSize = true;
+            this.lblCreatedAt.Location = new System.Drawing.Point(86, 153);
+            this.lblCreatedAt.Name = "lblCreatedAt";
+            this.lblCreatedAt.Size = new System.Drawing.Size(57, 13);
+            this.lblCreatedAt.TabIndex = 49;
+            this.lblCreatedAt.Text = "Created At";
+            // 
+            // lblLokasi
+            // 
+            this.lblLokasi.AutoSize = true;
+            this.lblLokasi.Location = new System.Drawing.Point(86, 131);
+            this.lblLokasi.Name = "lblLokasi";
+            this.lblLokasi.Size = new System.Drawing.Size(38, 13);
+            this.lblLokasi.TabIndex = 48;
+            this.lblLokasi.Text = "Lokasi";
+            // 
+            // lblKepada
+            // 
+            this.lblKepada.AutoSize = true;
+            this.lblKepada.Location = new System.Drawing.Point(86, 108);
+            this.lblKepada.Name = "lblKepada";
+            this.lblKepada.Size = new System.Drawing.Size(44, 13);
+            this.lblKepada.TabIndex = 47;
+            this.lblKepada.Text = "Kepada";
+            // 
+            // lblKodePT
+            // 
+            this.lblKodePT.AutoSize = true;
+            this.lblKodePT.Location = new System.Drawing.Point(86, 85);
+            this.lblKodePT.Name = "lblKodePT";
+            this.lblKodePT.Size = new System.Drawing.Size(46, 13);
+            this.lblKodePT.TabIndex = 46;
+            this.lblKodePT.Text = "KodePT";
+            // 
+            // lblPIC
+            // 
+            this.lblPIC.AutoSize = true;
+            this.lblPIC.Location = new System.Drawing.Point(86, 63);
+            this.lblPIC.Name = "lblPIC";
+            this.lblPIC.Size = new System.Drawing.Size(24, 13);
+            this.lblPIC.TabIndex = 45;
+            this.lblPIC.Text = "PIC";
+            // 
+            // lblStatus
+            // 
+            this.lblStatus.AutoSize = true;
+            this.lblStatus.Location = new System.Drawing.Point(86, 41);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(37, 13);
+            this.lblStatus.TabIndex = 44;
+            this.lblStatus.Text = "Status";
+            // 
+            // lblNoSP
+            // 
+            this.lblNoSP.AutoSize = true;
+            this.lblNoSP.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNoSP.Location = new System.Drawing.Point(86, 19);
+            this.lblNoSP.Name = "lblNoSP";
+            this.lblNoSP.Size = new System.Drawing.Size(41, 13);
+            this.lblNoSP.TabIndex = 44;
+            this.lblNoSP.Text = "NOSP";
+            // 
+            // lstTimeline
+            // 
+            this.lstTimeline.FormattingEnabled = true;
+            this.lstTimeline.Location = new System.Drawing.Point(6, 258);
+            this.lstTimeline.Name = "lstTimeline";
+            this.lstTimeline.Size = new System.Drawing.Size(315, 160);
+            this.lstTimeline.TabIndex = 0;
+            // 
+            // mainpanel
+            // 
+            this.mainpanel.Controls.Add(this.gnDetail);
+            this.mainpanel.Controls.Add(this.gbheader);
+            this.mainpanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mainpanel.Location = new System.Drawing.Point(0, 132);
+            this.mainpanel.Name = "mainpanel";
+            this.mainpanel.Padding = new System.Windows.Forms.Padding(3);
+            this.mainpanel.Size = new System.Drawing.Size(1009, 428);
+            this.mainpanel.TabIndex = 6;
+            // 
+            // gnDetail
+            // 
+            this.gnDetail.Controls.Add(this.dgvDetailSP);
+            this.gnDetail.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gnDetail.Location = new System.Drawing.Point(3, 284);
+            this.gnDetail.Name = "gnDetail";
+            this.gnDetail.Size = new System.Drawing.Size(1003, 141);
+            this.gnDetail.TabIndex = 1;
+            this.gnDetail.TabStop = false;
+            this.gnDetail.Text = "DETAIL SURAT PERBAIKAN";
+            // 
+            // dgvDetailSP
+            // 
+            this.dgvDetailSP.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvDetailSP.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvDetailSP.Location = new System.Drawing.Point(3, 16);
+            this.dgvDetailSP.Name = "dgvDetailSP";
+            this.dgvDetailSP.Size = new System.Drawing.Size(997, 122);
+            this.dgvDetailSP.TabIndex = 0;
+            // 
+            // gbheader
+            // 
+            this.gbheader.Controls.Add(this.dgvSuratPerbaikan);
+            this.gbheader.Dock = System.Windows.Forms.DockStyle.Top;
+            this.gbheader.Location = new System.Drawing.Point(3, 3);
+            this.gbheader.Name = "gbheader";
+            this.gbheader.Size = new System.Drawing.Size(1003, 281);
+            this.gbheader.TabIndex = 0;
+            this.gbheader.TabStop = false;
+            this.gbheader.Text = "SURAT PERBAIKAN";
+            // 
+            // dgvSuratPerbaikan
+            // 
+            this.dgvSuratPerbaikan.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvSuratPerbaikan.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvSuratPerbaikan.Location = new System.Drawing.Point(3, 16);
+            this.dgvSuratPerbaikan.Name = "dgvSuratPerbaikan";
+            this.dgvSuratPerbaikan.Size = new System.Drawing.Size(997, 262);
+            this.dgvSuratPerbaikan.TabIndex = 0;
+            // 
             // FrmSuratPerbaikan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -644,10 +646,10 @@
             this.rightpanel.ResumeLayout(false);
             this.rightpanel.PerformLayout();
             this.mainpanel.ResumeLayout(false);
-            this.gbheader.ResumeLayout(false);
             this.gnDetail.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvSuratPerbaikan)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetailSP)).EndInit();
+            this.gbheader.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvSuratPerbaikan)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -656,12 +658,12 @@
         #endregion
 
         private System.Windows.Forms.ToolStrip mainMenu;
-        private System.Windows.Forms.ToolStripButton btnTambah;
-        private System.Windows.Forms.ToolStripButton btnUbah;
-        private System.Windows.Forms.ToolStripButton btnHapus;
+        private System.Windows.Forms.ToolStripButton btnNew;
+        private System.Windows.Forms.ToolStripButton btnEdit;
+        private System.Windows.Forms.ToolStripButton btnDelete;
         private System.Windows.Forms.ToolStripButton btnRefresh;
         private System.Windows.Forms.ToolStripButton btnHistory;
-        private System.Windows.Forms.ToolStripButton tstButtonCetak;
+        private System.Windows.Forms.ToolStripButton btnPrint;
         private System.Windows.Forms.ToolStripButton btnExport;
         private System.Windows.Forms.GroupBox gbFilter;
         private System.Windows.Forms.Label label1;

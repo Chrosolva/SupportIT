@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Inventaris.View
+namespace SupportIT.View
 {
     public partial class FormUser : Form
     {

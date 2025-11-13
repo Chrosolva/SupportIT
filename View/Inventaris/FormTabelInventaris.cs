@@ -7,17 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Inventaris.Controller;
+using SupportIT.Controller;
 using Master.Master;
-using Inventaris.Model;
-using Inventaris.View.Inventaris;
+using SupportIT.Model;
+using SupportIT.View.Inventaris;
 using SupportIT.View;
 using Master.Controller;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.IO;
 using QRCoder;
 
-namespace Inventaris.View
+namespace SupportIT.View
 {
     public partial class FormTabelInventaris : Form
     {

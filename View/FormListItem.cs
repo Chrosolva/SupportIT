@@ -11,7 +11,7 @@ using Master.Controller;
 using Master.Master;
 using SupportIT.View.Perbaikan;
 using SupportIT.View.Inventaris;
-using Inventaris.Controller;
+using SupportIT.Controller;
 
 
 namespace SupportIT.View

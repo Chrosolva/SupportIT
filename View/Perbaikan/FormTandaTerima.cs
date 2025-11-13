@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using Master.Controller;
 using Master.Master;
 using SupportIT.Controller;
-using Inventaris.Controller;
+using SupportIT.Controller;
 using SupportIT.Model;
 
 namespace SupportIT.View.Perbaikan

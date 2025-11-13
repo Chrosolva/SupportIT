@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Master.Master;
-using Inventaris.Model;
+using SupportIT.Model;
 using System.Data;
 using Master.Controller;
 using SupportIT.Model;
 
-namespace Inventaris.Controller
+namespace SupportIT.Controller
 {
     public class ControllerInventaris
     {
@@ -17,7 +17,7 @@ namespace Inventaris.Controller
 
         private string query;
         public DBConnectionClass objConnection;
-        public InventarisKomputer InventarisKomputer;
+        public TblInventarisKomputer InventarisKomputer;
         public DetailInventarisKomputer detailInventarisKomputer;
         public ControllerInventarisForCUD controllerInventarisForCUD;
         private DataTable dt;
@@ -116,7 +116,7 @@ namespace Inventaris.Controller
         /// <param name="NamaBarang"></param>
         public void setInventaris(string KodeInventaris, string KodeKategori, string KodeKebun, bool Aktif, string NoPO, DateTime TglBeli, string NamaBarang, string Status, string KodeInv, string kodePT, string KeteranganAfkir)
         {
-            this.InventarisKomputer = new InventarisKomputer(KodeInventaris, KodeKategori, KodeKebun, Aktif, NoPO, TglBeli, NamaBarang, Status, KodeInv, kodePT, KeteranganAfkir);
+            this.InventarisKomputer = new TblInventarisKomputer(KodeInventaris, KodeKategori, KodeKebun, Aktif, NoPO, TglBeli, NamaBarang, Status, KodeInv, kodePT, KeteranganAfkir);
         }
 
         /// <summary>
@@ -142,7 +142,7 @@ namespace Inventaris.Controller
             this.detailInventarisKomputer = new DetailInventarisKomputer(KodeInventaris, Tgl, Kebun, KodeBagian, Pengguna, Spesifikasi, Kebutuhan, Keterangan, Mac1, Mac2, Mac3, IP1, IP2, IP3, ActiveUser);
         }
         
-        public InventarisKomputer getOneRecordInventaris(string KodeInventaris)
+        public TblInventarisKomputer getOneRecordInventaris(string KodeInventaris)
         {
             query = "Select * From Master.TblInventarisKomputer where KodeInventaris = " + ClsFungsi.C2Q(KodeInventaris);
             dt = objConnection.objsqlconnection.Filldatatable(query);
@@ -155,7 +155,7 @@ namespace Inventaris.Controller
             {
                 tmp = Convert.ToDateTime(dt.Rows[0]["TglBeli"]);
             }
-            this.InventarisKomputer = new InventarisKomputer(dt.Rows[0]["KodeInventaris"].ToString(), dt.Rows[0]["KodeKategori"].ToString(), dt.Rows[0]["KodeKebun"].ToString(), Convert.ToBoolean(dt.Rows[0]["Aktif"]), dt.Rows[0]["NoPO"].ToString(), tmp, dt.Rows[0]["NamaBarang"].ToString(), dt.Rows[0]["Status"].ToString(), dt.Rows[0]["KodeInvLama"].ToString(), dt.Rows[0]["KodePT"].ToString(), dt.Rows[0]["KeteranganAfkir"].ToString());
+            this.InventarisKomputer = new TblInventarisKomputer(dt.Rows[0]["KodeInventaris"].ToString(), dt.Rows[0]["KodeKategori"].ToString(), dt.Rows[0]["KodeKebun"].ToString(), Convert.ToBoolean(dt.Rows[0]["Aktif"]), dt.Rows[0]["NoPO"].ToString(), tmp, dt.Rows[0]["NamaBarang"].ToString(), dt.Rows[0]["Status"].ToString(), dt.Rows[0]["KodeInvLama"].ToString(), dt.Rows[0]["KodePT"].ToString(), dt.Rows[0]["KeteranganAfkir"].ToString());
             return this.InventarisKomputer;
         }
 
@@ -356,7 +356,7 @@ namespace Inventaris.Controller
             return NamaPT + "-" + KodeKategori + "-" + thn.ToString() + "." + Index;
         }
 
-        public void Insert(InventarisKomputer inventarisKomputer, DetailInventarisKomputer detailInventaris)
+        public void Insert(TblInventarisKomputer inventarisKomputer, DetailInventarisKomputer detailInventaris)
         {
             query = "Insert Into Master.TblInventarisKomputer " +
                     " (KodeInventaris, KodeKategori, KodeKebun, Aktif, NoPO, TglBeli, NamaBarang, Status, KodeInvLama, KodePT, KeteranganAfkir) " +
@@ -374,7 +374,7 @@ namespace Inventaris.Controller
             objConnection.objSqlServerIUDClass.ExecuteNonQuery(query);
         }
 
-        public void Update(InventarisKomputer inventarisKomputer, DetailInventarisKomputer detailInventaris)
+        public void Update(TblInventarisKomputer inventarisKomputer, DetailInventarisKomputer detailInventaris)
         {
             query = "Update Master.TblInventarisKomputer " +
                     " set KodeKategori = '" + inventarisKomputer.KodeKategori + "', KodeKebun = '" + inventarisKomputer.KodeKebun + "', Aktif = '" + Convert.ToBoolean(inventarisKomputer.Aktif) + "', NoPO = '" + inventarisKomputer.NoPO + "', " +

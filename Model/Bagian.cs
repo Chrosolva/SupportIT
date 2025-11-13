@@ -1,19 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Inventaris.Model
+namespace SupportIT.Model
 {
+    [Table("TblBagian", Schema = "Master")]
     public class Bagian
     {
         #region properties
 
+        [Key]
+        [MaxLength(10)]
         public string KodeBagian { get; set; }
+
+        [MaxLength(50)]
         public string NamaBagian { get; set; }
+
+        [MaxLength(50)]
         public string Asisten { get; set; }
+
+        [MaxLength(10)]
         public string Grup { get; set; }
+
+        [MaxLength(10)]
+        public string Status { get; set; }
 
         #endregion
 

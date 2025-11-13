@@ -8,9 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Master.Master;
-using Inventaris.Controller;
+using SupportIT.Controller;
 
-namespace Inventaris.View.BatasInventaris
+namespace SupportIT.View.BatasInventaris
 {
     public partial class FormInputEditBatasInventaris : Form
     {

@@ -104,5 +104,32 @@ namespace SupportIT.View.Inventaris
             _svc?.Dispose();
             base.OnFormClosed(e);
         }
+
+        private void btnNew_Click(object sender, EventArgs e)
+        {
+            using (var frm = new FrmSuratPerbaikanEdit())
+            {
+                if (frm.ShowDialog() == DialogResult.OK)
+                {
+                    LoadHeaders();  // re‑load the main grid
+                }
+            }
+
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            if (dgvSuratPerbaikan.CurrentRow != null)
+            {
+                var header = dgvSuratPerbaikan.CurrentRow.DataBoundItem as TblSuratPerbaikan;
+                using (var frm = new FrmSuratPerbaikanEdit(header.SPId))
+                {
+                    if (frm.ShowDialog() == DialogResult.OK)
+                    {
+                        LoadHeaders();
+                    }
+                }
+            }
+        }
     }
 }

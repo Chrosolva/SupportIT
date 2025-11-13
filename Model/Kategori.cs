@@ -1,16 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Inventaris.Model
+
+namespace SupportIT.Model
 {
+    [Table("TblKategori", Schema = "Master")]
     public class Kategori
     {
         #region properties
 
+        [Key]
+        [MaxLength(2)]
         public string KodeKategori { get; set; }
+
+        [MaxLength(50)]
         public string NamaKategori { get; set; }
 
         #endregion

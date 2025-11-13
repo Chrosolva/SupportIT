@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Master.Interfaces;
 using Master.Master;
-using Inventaris.Model;
+using SupportIT.Model;
 using System.Data;
 using Master.Controller;
 
-namespace Inventaris.Controller
+namespace SupportIT.Controller
 {
     public class ControllerKategori
     {

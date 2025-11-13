@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Master.Controller;
 using SupportIT.Controller;
-using Inventaris.Controller;
+using SupportIT.Controller;
 
 namespace SupportIT.View.Perbaikan
 {

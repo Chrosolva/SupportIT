@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Master.Master;
-using Inventaris.Model;
+using SupportIT.Model;
 using System.Data;
 
-namespace Inventaris.Controller
+namespace SupportIT.Controller
 {
     public class ControllerBatasInventaris
     {

@@ -4,12 +4,12 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Inventaris.Model;
+using SupportIT.Model;
 using Master.Master;
 using Master.Controller;
 
 
-namespace Inventaris.Controller
+namespace SupportIT.Controller
 {
     /// <summary>
     /// main controller kebun

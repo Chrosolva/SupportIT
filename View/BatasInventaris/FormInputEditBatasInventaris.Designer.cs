@@ -1,4 +1,4 @@
-﻿namespace Inventaris.View.BatasInventaris
+﻿namespace SupportIT.View.BatasInventaris
 {
     partial class FormInputEditBatasInventaris
     {

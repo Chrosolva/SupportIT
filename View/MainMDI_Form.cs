@@ -8,14 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Master.Master;
-using Inventaris.Model;
+using SupportIT.Model;
 using Master.Controller;
 using Master.View;
 using SupportIT.View.Inventaris;
 using SupportIT.View.Perbaikan;
 using SupportIT;
 
-namespace Inventaris.View
+namespace SupportIT.View
 {
     public partial class MainMDI_Form : Form
     {

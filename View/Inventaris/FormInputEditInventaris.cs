@@ -8,13 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Master.Master;
-using Inventaris.Controller;
-using Inventaris.View;
-using Inventaris.View.Inventaris;
-using Inventaris.Model;
+using SupportIT.Controller;
+using SupportIT.View;
+using SupportIT.View.Inventaris;
+using SupportIT.Model;
 using Master.Controller;
 
-namespace Inventaris.View.Inventaris
+namespace SupportIT.View.Inventaris
 {
     public partial class FormInputEditInventaris : Form
     {

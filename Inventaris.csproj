@@ -109,10 +109,10 @@
     <Compile Include="GlobalFontHelper.cs" />
     <Compile Include="Model\Bagian.cs" />
     <Compile Include="Model\BatasInventaris.cs" />
-    <Compile Include="Model\DetailInventarisKomputer.cs" />
+    <Compile Include="Model\TblDetailInventarisKomputer.cs" />
     <Compile Include="Model\DetailSuratPengantar.cs" />
     <Compile Include="Model\DetailTandaTerima.cs" />
-    <Compile Include="Model\InventarisKomputer.cs" />
+    <Compile Include="Model\TblInventarisKomputer.cs" />
     <Compile Include="Model\Kategori.cs" />
     <Compile Include="Model\Kebun.cs" />
     <Compile Include="Model\ReadModels\DetailSuratPerbaikanAsOfRow.cs" />
@@ -158,6 +158,7 @@
       <DependentUpon>PrintQRcodes.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Services\InventarisKomputerService.cs" />
     <Compile Include="Services\SuratPerbaikanService.cs" />
     <Compile Include="View\Bagian\FormBagian.cs">
       <SubType>Form</SubType>
@@ -231,11 +232,23 @@
     <Compile Include="View\Inventaris\FrmAfkirMsg.Designer.cs">
       <DependentUpon>FrmAfkirMsg.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\Inventaris\FrmPilihInventaris.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Inventaris\FrmPilihInventaris.Designer.cs">
+      <DependentUpon>FrmPilihInventaris.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\Inventaris\FrmSuratPerbaikan.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="View\Inventaris\FrmSuratPerbaikan.Designer.cs">
       <DependentUpon>FrmSuratPerbaikan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Inventaris\FrmSuratPerbaikanEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Inventaris\FrmSuratPerbaikanEdit.Designer.cs">
+      <DependentUpon>FrmSuratPerbaikanEdit.cs</DependentUpon>
     </Compile>
     <Compile Include="View\Kebun\FormInputEditKebun.cs">
       <SubType>Form</SubType>
@@ -366,8 +379,14 @@
     <EmbeddedResource Include="View\Inventaris\FrmAfkirMsg.resx">
       <DependentUpon>FrmAfkirMsg.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\Inventaris\FrmPilihInventaris.resx">
+      <DependentUpon>FrmPilihInventaris.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\Inventaris\FrmSuratPerbaikan.resx">
       <DependentUpon>FrmSuratPerbaikan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Inventaris\FrmSuratPerbaikanEdit.resx">
+      <DependentUpon>FrmSuratPerbaikanEdit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Kebun\FormInputEditKebun.resx">
       <DependentUpon>FormInputEditKebun.cs</DependentUpon>

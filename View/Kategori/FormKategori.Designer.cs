@@ -1,4 +1,4 @@
-﻿namespace Inventaris.View
+﻿namespace SupportIT.View
 {
     partial class FormKategori
     {

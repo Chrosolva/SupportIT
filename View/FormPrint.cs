@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Inventaris.Controller;
+using SupportIT.Controller;
 using CrystalDecisions.CrystalReports.Engine;
 using SupportIT.Reports;
 using SupportIT.Controller;

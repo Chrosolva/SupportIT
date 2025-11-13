@@ -1,33 +1,60 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Inventaris.Model
+namespace SupportIT.Model
 {
+    [Table("TblDetailInventarisKomputer", Schema = "Master")]
     public class DetailInventarisKomputer
     {
         #region properties
 
+        // Composite key: KodeInventaris + Tgl
+        [Key, Column(Order = 0)]
+        [MaxLength(20)]
         public string KodeInventaris { get; set; }
+
+        [Key]
+        [Column(Order = 1, TypeName = "datetime2")]
         public DateTime Tgl { get; set; }
 
+        [MaxLength(2)]
         public string Kebun { get; set; }
 
+        [MaxLength(10)]
         public string KodeBagian { get; set; }
 
+        [MaxLength(150)]
         public string Pengguna { get; set; }
+
+        [MaxLength(1000)]
         public string Spesifikasi { get; set; }
+
+        [MaxLength(1000)]
         public string Kebutuhan { get; set; }
+
+        [MaxLength(200)]
         public string Keterangan { get; set; }
+
+        [MaxLength(50)]
         public string MacAddress1 { get; set; }
+
+        [MaxLength(50)]
         public string MacAddress2 { get; set; }
+
+        [MaxLength(50)]
         public string MacAddress3 { get; set; }
+
+        [MaxLength(50)]
         public string IP1 { get; set; }
+
+        [MaxLength(50)]
         public string IP2 { get; set; }
+
+        [MaxLength(50)]
         public string IP3 { get; set; }
 
+        [MaxLength(50)]
         public string ActiveUser { get; set; }
 
         #endregion

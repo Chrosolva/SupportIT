@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Inventaris.Controller;
+using SupportIT.Controller;
 
-namespace Inventaris.View
+namespace SupportIT.View
 {
     public partial class FormHistoryInventaris : Form
     {

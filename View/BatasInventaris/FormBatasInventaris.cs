@@ -7,10 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Inventaris.View.BatasInventaris;
+using SupportIT.View.BatasInventaris;
 using Master.Master;
-using Inventaris.Controller;
-namespace Inventaris.View
+using SupportIT.Controller;
+namespace SupportIT.View
 
 {
     public partial class FormBatasInventaris : Form

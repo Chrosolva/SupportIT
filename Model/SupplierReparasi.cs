@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Master.Controller;
 
-namespace Inventaris.Model
+namespace SupportIT.Model
 {
     public class SupplierReparasi
     {

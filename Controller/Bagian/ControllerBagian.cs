@@ -1,4 +1,4 @@
-﻿using Inventaris.Model;
+﻿using SupportIT.Model;
 using Master.Master;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Master.Controller;
 
-namespace Inventaris.Controller
+namespace SupportIT.Controller
 {
     public class ControllerBagian
     {

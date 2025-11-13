@@ -8,31 +8,29 @@ namespace SupportIT.Data
     {
         public DBMISPEUKDContext() : base("name=DBMISPEUKD_Prod")
         {
-            Configuration.LazyLoadingEnabled = false;   // to avoid accidental deep loads
-            Configuration.ProxyCreationEnabled = false; // simpler with WinForms binding
+            // Configure if needed
+            Configuration.LazyLoadingEnabled = false;
+            Configuration.ProxyCreationEnabled = false;
         }
 
-        // Live tables
+        // DbSets for all tables from the screenshot
+        public DbSet<Kategori> Kategoris { get; set; }
+        public DbSet<Bagian> Bagians { get; set; }
+        public DbSet<Kebun> Kebuns { get; set; }
+        public DbSet<TblInventarisKomputer> InventarisKomputers { get; set; }
+        public DbSet<DetailInventarisKomputer> DetailInventarisKomputers { get; set; }
         public DbSet<TblSuratPerbaikan> SuratPerbaikans { get; set; }
         public DbSet<TblDetailSuratPerbaikan> DetailSuratPerbaikans { get; set; }
         public DbSet<TblSuratPerbaikanLog> SuratPerbaikanLogs { get; set; }
+        public DbSet<BatasInventaris> BatasInventaris { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            // Keep your singular names; skip pluralizing conv to stay close to DB
+            // Prevent EF from pluralizing table names
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
-            // Composite key for detail is defined via [Key, Column(Order=..)] attributes.
+            // Composite keys are already defined via data annotations on the entity classes.
 
-            // FK: Detail -> Header with cascade delete (DB already has it; be explicit too)
-            modelBuilder.Entity<TblDetailSuratPerbaikan>()
-                .HasRequired(d => d.Surat)
-                .WithMany() // we don't need a navigation collection in TblSuratPerbaikan
-                .HasForeignKey(d => d.SPId)
-                .WillCascadeOnDelete(true);
-
-            // Index attributes (like UQ_NoSP) are honored in Code First Migrations,
-            // but since we already created tables, we’re not running migrations.
             base.OnModelCreating(modelBuilder);
         }
     }
