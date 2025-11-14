@@ -117,8 +117,10 @@ namespace SupportIT
             GridLines = Color.FromArgb(220, 225, 235),
 
             // Selection
-            SelectionBack = Color.FromArgb(180, 59, 130, 246), // translucent soft blue highlight
-            SelectionText = Color.Black,
+            // In BlueCalmLight
+            SelectionBack = Color.FromArgb(210, 227, 255), // soft opaque blue highlight
+            SelectionText = Color.FromArgb(25, 40, 65),    // readable on light blue
+
 
             // Readonly cells
             ReadonlyBack = Color.FromArgb(235, 238, 245),
@@ -142,13 +144,13 @@ namespace SupportIT
         // Original simple signature (now defaults to the Blue theme)
         public static void ApplyDefaultStyle(DataGridView dgv)
         {
-            ApplyDefaultStyleInternal(dgv, BlueCalmDark, true, false);
+            ApplyDefaultStyleInternal(dgv, BlueCalmLight, true, false);
         }
 
         // Original signature with flags (now defaults to the Blue theme)
         public static void ApplyDefaultStyle(DataGridView dgv, bool readOnly = true, bool multiSelect = false)
         {
-            ApplyDefaultStyleInternal(dgv, BlueCalmDark, readOnly, multiSelect);
+            ApplyDefaultStyleInternal(dgv, BlueCalmLight, readOnly, multiSelect);
         }
 
         // Themed version with a different name to avoid overload ambiguity

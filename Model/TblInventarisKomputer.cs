@@ -34,7 +34,7 @@ namespace SupportIT.Model
         public string NoPO { get; set; }
 
         [Column(TypeName = "datetime2")]
-        public DateTime TglBeli { get; set; }
+        public DateTime? TglBeli { get; set; }
 
         [MaxLength(500)]
         public string NamaBarang { get; set; }
@@ -54,6 +54,11 @@ namespace SupportIT.Model
         #endregion
 
         #region Constructor
+
+        public TblInventarisKomputer()
+        {
+
+        }
 
         public TblInventarisKomputer(string KodeInventaris, string KodeKategori, string KodeKebun, bool Aktif, string NoPO, DateTime TglBeli,string NamaBarang, string Status, string KodeInvLama)
         {

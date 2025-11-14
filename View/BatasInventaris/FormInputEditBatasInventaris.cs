@@ -87,7 +87,7 @@ namespace SupportIT.View.BatasInventaris
             cbxKodeBagian.Text = controllerBatasInventaris.batasInventaris.KodeBagian;
             cbxKodeKategori.Text = controllerBatasInventaris.batasInventaris.KodeKategori;
             cbxKodeKebun.Text = controllerBatasInventaris.batasInventaris.KodeKebun;
-            NUDJlhMax.Value = controllerBatasInventaris.batasInventaris.JumlahMax;
+            NUDJlhMax.Value = Convert.ToDecimal(controllerBatasInventaris.batasInventaris.JumlahMax);
             txtKeterangan.Text = controllerBatasInventaris.batasInventaris.Keterangan;
         }
 

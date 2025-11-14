@@ -8,10 +8,26 @@ namespace SupportIT.Model
     {
         #region properties
 
+        // Composite PK: KodeBagian + KodeKategori + KodeKebun
+        [Key]
+        [Column(Order = 0)]
+        [MaxLength(10)]
         public string KodeBagian { get; set; }
+
+        [Key]
+        [Column(Order = 1)]
+        [MaxLength(2)]
         public string KodeKategori { get; set; }
+
+        [Key]
+        [Column(Order = 2)]
+        [MaxLength(2)]
         public string KodeKebun { get; set; }
-        public int JumlahMax { get; set; }
+
+        // Other columns
+        public int? JumlahMax { get; set; }
+
+        [MaxLength(50)]
         public string Keterangan { get; set; }
 
         #endregion
