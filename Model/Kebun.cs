@@ -42,6 +42,10 @@ namespace SupportIT.Model
 
         #region Constructor
 
+        public Kebun()
+        {
+
+        }
         public Kebun(string KodeKebun, string NamaKebun, string Alamat, string NamaSingkat, string Kota, string Kodepos, string Telp, string Fax, string Status)
         {
             this.KodeKebun = KodeKebun;

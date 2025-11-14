@@ -35,9 +35,9 @@
             this.label5 = new System.Windows.Forms.Label();
             this.cbKodePT = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.cbPIC = new System.Windows.Forms.ComboBox();
+            this.cbKebun = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.cbStatus = new System.Windows.Forms.ComboBox();
+            this.cbKategori = new System.Windows.Forms.ComboBox();
             this.bottompanel = new System.Windows.Forms.Panel();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSelect = new System.Windows.Forms.Button();
@@ -57,13 +57,13 @@
             this.gbFilter.Controls.Add(this.label5);
             this.gbFilter.Controls.Add(this.cbKodePT);
             this.gbFilter.Controls.Add(this.label4);
-            this.gbFilter.Controls.Add(this.cbPIC);
+            this.gbFilter.Controls.Add(this.cbKebun);
             this.gbFilter.Controls.Add(this.label3);
-            this.gbFilter.Controls.Add(this.cbStatus);
+            this.gbFilter.Controls.Add(this.cbKategori);
             this.gbFilter.Dock = System.Windows.Forms.DockStyle.Top;
             this.gbFilter.Location = new System.Drawing.Point(0, 0);
             this.gbFilter.Name = "gbFilter";
-            this.gbFilter.Size = new System.Drawing.Size(950, 78);
+            this.gbFilter.Size = new System.Drawing.Size(1207, 78);
             this.gbFilter.TabIndex = 5;
             this.gbFilter.TabStop = false;
             this.gbFilter.Text = "FILTER";
@@ -71,7 +71,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(294, 15);
+            this.label6.Location = new System.Drawing.Point(486, 16);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(51, 13);
             this.label6.TabIndex = 43;
@@ -79,14 +79,14 @@
             // 
             // txtSearch
             // 
-            this.txtSearch.Location = new System.Drawing.Point(288, 35);
+            this.txtSearch.Location = new System.Drawing.Point(489, 35);
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(293, 20);
             this.txtSearch.TabIndex = 42;
             // 
             // btnFilter
             // 
-            this.btnFilter.Location = new System.Drawing.Point(597, 33);
+            this.btnFilter.Location = new System.Drawing.Point(804, 32);
             this.btnFilter.Name = "btnFilter";
             this.btnFilter.Size = new System.Drawing.Size(75, 23);
             this.btnFilter.TabIndex = 41;
@@ -96,7 +96,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(194, 16);
+            this.label5.Location = new System.Drawing.Point(359, 16);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(54, 13);
             this.label5.TabIndex = 40;
@@ -112,34 +112,34 @@
             "DIKIRIM",
             "DITERIMA",
             "SELESAI"});
-            this.cbKodePT.Location = new System.Drawing.Point(194, 35);
+            this.cbKodePT.Location = new System.Drawing.Point(362, 37);
             this.cbKodePT.Name = "cbKodePT";
-            this.cbKodePT.Size = new System.Drawing.Size(88, 21);
+            this.cbKodePT.Size = new System.Drawing.Size(104, 21);
             this.cbKodePT.TabIndex = 39;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(100, 16);
+            this.label4.Location = new System.Drawing.Point(185, 15);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(44, 13);
             this.label4.TabIndex = 38;
             this.label4.Text = "KEBUN";
             // 
-            // cbPIC
+            // cbKebun
             // 
-            this.cbPIC.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbPIC.FormattingEnabled = true;
-            this.cbPIC.Items.AddRange(new object[] {
+            this.cbKebun.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbKebun.FormattingEnabled = true;
+            this.cbKebun.Items.AddRange(new object[] {
             "ALL",
             "DRAFT",
             "DIKIRIM",
             "DITERIMA",
             "SELESAI"});
-            this.cbPIC.Location = new System.Drawing.Point(100, 35);
-            this.cbPIC.Name = "cbPIC";
-            this.cbPIC.Size = new System.Drawing.Size(88, 21);
-            this.cbPIC.TabIndex = 37;
+            this.cbKebun.Location = new System.Drawing.Point(188, 37);
+            this.cbKebun.Name = "cbKebun";
+            this.cbKebun.Size = new System.Drawing.Size(145, 21);
+            this.cbKebun.TabIndex = 37;
             // 
             // label3
             // 
@@ -150,20 +150,20 @@
             this.label3.TabIndex = 36;
             this.label3.Text = "KATEGORI";
             // 
-            // cbStatus
+            // cbKategori
             // 
-            this.cbStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbStatus.FormattingEnabled = true;
-            this.cbStatus.Items.AddRange(new object[] {
+            this.cbKategori.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbKategori.FormattingEnabled = true;
+            this.cbKategori.Items.AddRange(new object[] {
             "ALL",
             "DRAFT",
             "DIKIRIM",
             "DIPROSES",
             "SELESAI"});
-            this.cbStatus.Location = new System.Drawing.Point(6, 37);
-            this.cbStatus.Name = "cbStatus";
-            this.cbStatus.Size = new System.Drawing.Size(88, 21);
-            this.cbStatus.TabIndex = 35;
+            this.cbKategori.Location = new System.Drawing.Point(6, 37);
+            this.cbKategori.Name = "cbKategori";
+            this.cbKategori.Size = new System.Drawing.Size(161, 21);
+            this.cbKategori.TabIndex = 35;
             // 
             // bottompanel
             // 
@@ -172,7 +172,7 @@
             this.bottompanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.bottompanel.Location = new System.Drawing.Point(0, 369);
             this.bottompanel.Name = "bottompanel";
-            this.bottompanel.Size = new System.Drawing.Size(950, 53);
+            this.bottompanel.Size = new System.Drawing.Size(1207, 53);
             this.bottompanel.TabIndex = 6;
             // 
             // btnCancel
@@ -200,7 +200,7 @@
             this.contentpanel.Location = new System.Drawing.Point(0, 78);
             this.contentpanel.Name = "contentpanel";
             this.contentpanel.Padding = new System.Windows.Forms.Padding(4);
-            this.contentpanel.Size = new System.Drawing.Size(950, 291);
+            this.contentpanel.Size = new System.Drawing.Size(1207, 291);
             this.contentpanel.TabIndex = 7;
             // 
             // dgvInventaris
@@ -209,19 +209,21 @@
             this.dgvInventaris.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvInventaris.Location = new System.Drawing.Point(4, 4);
             this.dgvInventaris.Name = "dgvInventaris";
-            this.dgvInventaris.Size = new System.Drawing.Size(942, 283);
+            this.dgvInventaris.Size = new System.Drawing.Size(1199, 283);
             this.dgvInventaris.TabIndex = 0;
             // 
             // FrmPilihInventaris
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(950, 422);
+            this.ClientSize = new System.Drawing.Size(1207, 422);
             this.Controls.Add(this.contentpanel);
             this.Controls.Add(this.bottompanel);
             this.Controls.Add(this.gbFilter);
             this.Name = "FrmPilihInventaris";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmPilihInventaris";
+            this.Load += new System.EventHandler(this.FrmPilihInventaris_Load);
             this.gbFilter.ResumeLayout(false);
             this.gbFilter.PerformLayout();
             this.bottompanel.ResumeLayout(false);
@@ -240,9 +242,9 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox cbKodePT;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox cbPIC;
+        private System.Windows.Forms.ComboBox cbKebun;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox cbStatus;
+        private System.Windows.Forms.ComboBox cbKategori;
         private System.Windows.Forms.Panel bottompanel;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnSelect;

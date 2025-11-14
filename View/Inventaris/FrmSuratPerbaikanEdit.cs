@@ -39,9 +39,12 @@ namespace SupportIT.View.Inventaris
             _inventarisSvc = new InventarisKomputerService(_db);
 
             // Apply any style helpers you use in your project
-            DataGridViewHelper.ApplyDefaultStyleThemed(dgvDetailSP, DataGridViewHelper.BlueCalmLight, true, false);
+            DataGridViewHelper.ApplyDefaultStyleThemed(dgvDetailSP, DataGridViewHelper.BlueCalmLight, false, true);
             ButtonHelper.Apply(btnSave, ButtonHelper.BlueCalmLight);
             ButtonHelper.Apply(btnCancel, ButtonHelper.BlueCalmLight);
+            ButtonHelper.Apply(btnAddRow, ButtonHelper.BlueCalmLight);
+            ButtonHelper.Apply(btnDeleteRow, ButtonHelper.BlueCalmLight);
+            SetupDetailGridBehavior();
 
             // Initialize status and KodePT lists
             cbStatus.Items.Clear();
@@ -57,6 +60,9 @@ namespace SupportIT.View.Inventaris
             if (SPId.HasValue)
             {
                 LoadExisting(SPId.Value);
+                ReindexDetailRows();
+                EnsureBlankLastRow();
+
             }
             else
             {
@@ -64,12 +70,21 @@ namespace SupportIT.View.Inventaris
             }
 
             SetupDetailGridColumns();
+            EnsureBlankLastRow();
             dgvDetailSP.DataSource = _details;
 
             // Register grid event handlers
             dgvDetailSP.UserDeletingRow += DgvDetailSP_UserDeletingRow;
-            dgvDetailSP.CellDoubleClick += DgvDetailSP_CellDoubleClick;
+            //dgvDetailSP.CellDoubleClick += DgvDetailSP_CellDoubleClick;
             dgvDetailSP.CellEndEdit += DgvDetailSP_CellEndEdit;
+            // Register grid event handlers
+            dgvDetailSP.UserDeletingRow += DgvDetailSP_UserDeletingRow;
+            // dgvDetailSP.CellDoubleClick += DgvDetailSP_CellDoubleClick; // sudah tidak perlu
+            dgvDetailSP.CellEndEdit += DgvDetailSP_CellEndEdit;
+            dgvDetailSP.CellContentClick += DgvDetailSP_CellContentClick;
+            dgvDetailSP.KeyDown += DgvDetailSP_KeyDown;
+            dgvDetailSP.UserDeletingRow += DgvDetailSP_UserDeletingRow;
+
         }
 
         private void CreateNew()
@@ -88,6 +103,65 @@ namespace SupportIT.View.Inventaris
             textBox1.Text = ControllerStaticVariables.controllerUser.user.UserID;
 
             _details = new BindingList<TblDetailSuratPerbaikan>();
+
+            // Tambah satu baris kosong default
+            //var det = new TblDetailSuratPerbaikan();
+            //det.NoUrut = 1;
+            //det.Jumlah = 1;
+            //det.Satuan = "BH";
+            //det.Keterangan = "";   // biar tidak perlu diisi dulu
+            //_details.Add(det);
+        }
+
+        private void EnsureBlankLastRow()
+        {
+            if (_details == null)
+                return;
+
+            // 1) Hapus blank rows ekstra, sisakan maksimal 1 di paling bawah
+            //    (blank = KodeInventaris, NamaBarang, Keterangan semua kosong)
+            for (int i = _details.Count - 1; i >= 0; i--)
+            {
+                bool isBlank =
+                    string.IsNullOrWhiteSpace(_details[i].KodeInventaris) &&
+                    string.IsNullOrWhiteSpace(_details[i].NamaBarang) &&
+                    string.IsNullOrWhiteSpace(_details[i].Keterangan);
+
+                // kalau blank tapi bukan row terakhir, hapus
+                if (isBlank && i != _details.Count - 1)
+                {
+                    _details.RemoveAt(i);
+                }
+            }
+
+            // 2) Kalau tidak ada satupun row, buat satu row kosong default
+            if (_details.Count == 0)
+            {
+                var det = new TblDetailSuratPerbaikan();
+                det.NoUrut = 1;
+                det.Jumlah = 1;
+                det.Satuan = "BH";
+                det.Keterangan = "";
+                _details.Add(det);
+                return;
+            }
+
+            // 3) Cek row terakhir saat ini: kalau SUDAH berisi, tambahkan satu blank row baru.
+            var last = _details[_details.Count - 1];
+            bool lastHasData =
+                !string.IsNullOrWhiteSpace(last.KodeInventaris) ||
+                !string.IsNullOrWhiteSpace(last.NamaBarang) ||
+                !string.IsNullOrWhiteSpace(last.Keterangan);
+
+            if (lastHasData)
+            {
+                var det = new TblDetailSuratPerbaikan();
+                det.NoUrut = _details.Count + 1;
+                det.Jumlah = 1;
+                det.Satuan = "BH";
+                det.Keterangan = "";
+                _details.Add(det);
+            }
         }
 
         /// <summary>
@@ -159,38 +233,70 @@ namespace SupportIT.View.Inventaris
             _details = new BindingList<TblDetailSuratPerbaikan>(list);
         }
 
+        private void SetupDetailGridBehavior()
+        {
+            dgvDetailSP.ReadOnly = false;
+            dgvDetailSP.AllowUserToAddRows = false;
+            dgvDetailSP.AllowUserToDeleteRows = true;
+            dgvDetailSP.SelectionMode = DataGridViewSelectionMode.FullRowSelect; // ⬅️ full row
+            dgvDetailSP.MultiSelect = false;
+            dgvDetailSP.EditMode = DataGridViewEditMode.EditOnEnter;
+            dgvDetailSP.RowHeadersVisible = true; // ensure row-header (leftmost) is visible
+        }
+
+
         private void SetupDetailGridColumns()
         {
             dgvDetailSP.Columns.Clear();
             dgvDetailSP.AutoGenerateColumns = false;
-            dgvDetailSP.AllowUserToAddRows = true;
+            dgvDetailSP.AllowUserToAddRows = false;   // ⬅️ keep false here too
             dgvDetailSP.AllowUserToDeleteRows = true;
             dgvDetailSP.EditMode = DataGridViewEditMode.EditOnEnter;
 
             // NoUrut (read-only)
             var colNoUrut = new DataGridViewTextBoxColumn
             {
-                DataPropertyName = nameof(TblDetailSuratPerbaikan.NoUrut),
+                Name = "NoUrut",
+                DataPropertyName = "NoUrut",
                 HeaderText = "No.",
-                Width = 50,
-                ReadOnly = true
+                ReadOnly = true,
+                Width = 40,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.None,
+                Resizable = DataGridViewTriState.False
             };
             dgvDetailSP.Columns.Add(colNoUrut);
 
             // KodeInventaris
             var colKode = new DataGridViewTextBoxColumn
             {
-                DataPropertyName = nameof(TblDetailSuratPerbaikan.KodeInventaris),
+                Name = "KodeInventaris",
+                DataPropertyName = "KodeInventaris",
                 HeaderText = "Kode Inventaris",
-                Width = 120
+                ReadOnly = false,
+                Width = 140
             };
             dgvDetailSP.Columns.Add(colKode);
+
+            // === Button pilih inventaris ===
+            var colBtnPilih = new DataGridViewButtonColumn
+            {
+                Name = "PilihInventaris",
+                HeaderText = "",
+                Text = "...",
+                UseColumnTextForButtonValue = true,
+                Width = 40,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.None,
+                Resizable = DataGridViewTriState.False
+            };
+            dgvDetailSP.Columns.Add(colBtnPilih);
 
             // NamaBarang
             var colNama = new DataGridViewTextBoxColumn
             {
-                DataPropertyName = nameof(TblDetailSuratPerbaikan.NamaBarang),
+                Name = "NamaBarang",
+                DataPropertyName = "NamaBarang",
                 HeaderText = "Nama Barang",
+                ReadOnly = false,
                 Width = 200
             };
             dgvDetailSP.Columns.Add(colNama);
@@ -223,27 +329,122 @@ namespace SupportIT.View.Inventaris
             dgvDetailSP.Columns.Add(colKet);
         }
 
-        private void DgvDetailSP_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void DeleteCurrentDetailRow()
+        {
+            if (_details == null || _details.Count == 0)
+                return;
+
+            if (dgvDetailSP.CurrentRow == null)
+                return;
+
+            int index = dgvDetailSP.CurrentRow.Index;
+            if (index < 0 || index >= _details.Count)
+                return;
+
+            // Jangan hapus satu-satunya baris kosong (helper row)
+            bool onlyOne = _details.Count == 1;
+            TblDetailSuratPerbaikan det = _details[index];
+
+            bool isBlank =
+                string.IsNullOrWhiteSpace(det.KodeInventaris) &&
+                string.IsNullOrWhiteSpace(det.NamaBarang) &&
+                string.IsNullOrWhiteSpace(det.Keterangan) &&
+                det.Jumlah <= 0;
+
+            if (onlyOne && isBlank)
+                return;
+
+            if (MessageBox.Show("Hapus baris yang dipilih?", "Konfirmasi",
+                                MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                return;
+
+            _details.RemoveAt(index);
+            ReindexDetailRows();
+            EnsureBlankLastRow();
+            dgvDetailSP.Refresh();
+        }
+
+
+        private void DgvDetailSP_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
 
-            // Only handle double-clicks on the KodeInventaris column
-            var colName = dgvDetailSP.Columns[e.ColumnIndex].DataPropertyName;
-            if (colName != nameof(TblDetailSuratPerbaikan.KodeInventaris)) return;
+            var col = dgvDetailSP.Columns[e.ColumnIndex];
+            if (col == null) return;
+            if (col.Name != "PilihInventaris") return;   // only handle button column
 
             using (var frm = new FrmPilihInventaris())
             {
-                if (frm.ShowDialog() == DialogResult.OK)
+                if (frm.ShowDialog() == DialogResult.OK && frm.SelectedInventaris != null)
                 {
                     var selected = frm.SelectedInventaris;
-                    var row = dgvDetailSP.Rows[e.RowIndex];
-                    row.Cells[nameof(TblDetailSuratPerbaikan.KodeInventaris)].Value = selected.KodeInventaris;
-                    row.Cells[nameof(TblDetailSuratPerbaikan.NamaBarang)].Value = selected.NamaBarang;
-                    // If you store Satuan in inventory, set it here:
-                    // row.Cells[nameof(TblDetailSuratPerbaikan.Satuan)].Value = selected.Satuan;
+
+                    if (_details == null)
+                        _details = new BindingList<TblDetailSuratPerbaikan>();
+
+                    TblDetailSuratPerbaikan det;
+
+                    // Pastikan index valid -> kalau user klik di baris di luar range, anggap last row
+                    if (e.RowIndex >= 0 && e.RowIndex < _details.Count)
+                    {
+                        det = _details[e.RowIndex];
+                    }
+                    else
+                    {
+                        det = new TblDetailSuratPerbaikan();
+                        det.NoUrut = _details.Count + 1;
+                        det.Jumlah = 1;
+                        det.Satuan = "BH";
+                        det.Keterangan = "";
+                        _details.Add(det);
+                    }
+
+                    // Isi data dari inventaris
+                    det.KodeInventaris = selected.KodeInventaris;
+                    det.NamaBarang = selected.NamaBarang;
+
+                    if (det.Jumlah <= 0) det.Jumlah = 1;
+                    if (string.IsNullOrEmpty(det.Satuan)) det.Satuan = "BH";
+                    if (det.Keterangan == null) det.Keterangan = "";
+
+                    ReindexDetailRows();
+                    EnsureBlankLastRow();   // pastikan selalu ada baris kosong di bawahnya
+                    dgvDetailSP.Refresh();
                 }
             }
         }
+
+        private void DgvDetailSP_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                DeleteCurrentDetailRow();
+                e.Handled = true;
+            }
+        }
+
+
+        //private void DgvDetailSP_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        //{
+        //    if (e.RowIndex < 0) return;
+
+        //    // Only handle double-clicks on the KodeInventaris column
+        //    var colName = dgvDetailSP.Columns[e.ColumnIndex].DataPropertyName;
+        //    if (colName != nameof(TblDetailSuratPerbaikan.KodeInventaris)) return;
+
+        //    using (var frm = new FrmPilihInventaris())
+        //    {
+        //        if (frm.ShowDialog() == DialogResult.OK)
+        //        {
+        //            var selected = frm.SelectedInventaris;
+        //            var row = dgvDetailSP.Rows[e.RowIndex];
+        //            row.Cells[nameof(TblDetailSuratPerbaikan.KodeInventaris)].Value = selected.KodeInventaris;
+        //            row.Cells[nameof(TblDetailSuratPerbaikan.NamaBarang)].Value = selected.NamaBarang;
+        //            // If you store Satuan in inventory, set it here:
+        //            // row.Cells[nameof(TblDetailSuratPerbaikan.Satuan)].Value = selected.Satuan;
+        //        }
+        //    }
+        //}
 
         private void DgvDetailSP_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
@@ -265,8 +466,11 @@ namespace SupportIT.View.Inventaris
 
         private void DgvDetailSP_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
-            BeginInvoke((Action)(() => ReindexDetailRows()));
+            e.Cancel = true;              // batalkan delete bawaan DGV
+            dgvDetailSP.CurrentCell = e.Row.Cells[0];
+            DeleteCurrentDetailRow();     // pakai logika kita sendiri
         }
+
 
         private void ReindexDetailRows()
         {
@@ -419,7 +623,14 @@ namespace SupportIT.View.Inventaris
             Close();
         }
 
+        private void btnAddRow_Click(object sender, EventArgs e)
+        {
+            EnsureBlankLastRow();
+        }
 
-
+        private void btnDeleteRow_Click(object sender, EventArgs e)
+        {
+            DeleteCurrentDetailRow();
+        }
     }
 }

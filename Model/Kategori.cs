@@ -20,6 +20,11 @@ namespace SupportIT.Model
 
         #region constructor
 
+        public Kategori()
+        {
+
+        }
+
         public Kategori(string KodeKategori, string NamaKategori)
         {
             this.KodeKategori = KodeKategori;

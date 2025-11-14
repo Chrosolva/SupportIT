@@ -48,6 +48,8 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.contentpanel = new System.Windows.Forms.Panel();
             this.dgvDetailSP = new System.Windows.Forms.DataGridView();
+            this.btnAddRow = new System.Windows.Forms.Button();
+            this.btnDeleteRow = new System.Windows.Forms.Button();
             this.gbHeader.SuspendLayout();
             this.bottompanel.SuspendLayout();
             this.contentpanel.SuspendLayout();
@@ -56,6 +58,8 @@
             // 
             // gbHeader
             // 
+            this.gbHeader.Controls.Add(this.btnDeleteRow);
+            this.gbHeader.Controls.Add(this.btnAddRow);
             this.gbHeader.Controls.Add(this.textBox1);
             this.gbHeader.Controls.Add(this.label5);
             this.gbHeader.Controls.Add(this.cbKodePT);
@@ -73,7 +77,7 @@
             this.gbHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.gbHeader.Location = new System.Drawing.Point(0, 0);
             this.gbHeader.Name = "gbHeader";
-            this.gbHeader.Size = new System.Drawing.Size(836, 135);
+            this.gbHeader.Size = new System.Drawing.Size(999, 135);
             this.gbHeader.TabIndex = 0;
             this.gbHeader.TabStop = false;
             this.gbHeader.Text = "HEADER";
@@ -205,7 +209,7 @@
             this.bottompanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.bottompanel.Location = new System.Drawing.Point(0, 466);
             this.bottompanel.Name = "bottompanel";
-            this.bottompanel.Size = new System.Drawing.Size(836, 53);
+            this.bottompanel.Size = new System.Drawing.Size(999, 53);
             this.bottompanel.TabIndex = 1;
             // 
             // btnCancel
@@ -216,6 +220,7 @@
             this.btnCancel.TabIndex = 43;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnSave
             // 
@@ -233,7 +238,7 @@
             this.contentpanel.Location = new System.Drawing.Point(0, 135);
             this.contentpanel.Name = "contentpanel";
             this.contentpanel.Padding = new System.Windows.Forms.Padding(4);
-            this.contentpanel.Size = new System.Drawing.Size(836, 331);
+            this.contentpanel.Size = new System.Drawing.Size(999, 331);
             this.contentpanel.TabIndex = 2;
             // 
             // dgvDetailSP
@@ -242,18 +247,39 @@
             this.dgvDetailSP.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvDetailSP.Location = new System.Drawing.Point(4, 4);
             this.dgvDetailSP.Name = "dgvDetailSP";
-            this.dgvDetailSP.Size = new System.Drawing.Size(828, 323);
+            this.dgvDetailSP.Size = new System.Drawing.Size(991, 323);
             this.dgvDetailSP.TabIndex = 0;
+            // 
+            // btnAddRow
+            // 
+            this.btnAddRow.Location = new System.Drawing.Point(749, 99);
+            this.btnAddRow.Name = "btnAddRow";
+            this.btnAddRow.Size = new System.Drawing.Size(75, 23);
+            this.btnAddRow.TabIndex = 44;
+            this.btnAddRow.Text = "ADD ROW";
+            this.btnAddRow.UseVisualStyleBackColor = true;
+            this.btnAddRow.Click += new System.EventHandler(this.btnAddRow_Click);
+            // 
+            // btnDeleteRow
+            // 
+            this.btnDeleteRow.Location = new System.Drawing.Point(830, 99);
+            this.btnDeleteRow.Name = "btnDeleteRow";
+            this.btnDeleteRow.Size = new System.Drawing.Size(101, 23);
+            this.btnDeleteRow.TabIndex = 58;
+            this.btnDeleteRow.Text = "DELETE ROW";
+            this.btnDeleteRow.UseVisualStyleBackColor = true;
+            this.btnDeleteRow.Click += new System.EventHandler(this.btnDeleteRow_Click);
             // 
             // FrmSuratPerbaikanEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(836, 519);
+            this.ClientSize = new System.Drawing.Size(999, 519);
             this.Controls.Add(this.contentpanel);
             this.Controls.Add(this.bottompanel);
             this.Controls.Add(this.gbHeader);
             this.Name = "FrmSuratPerbaikanEdit";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmSuratPerbaikanEdit";
             this.Load += new System.EventHandler(this.FrmSuratPerbaikanEdit_Load);
             this.gbHeader.ResumeLayout(false);
@@ -287,5 +313,7 @@
         private System.Windows.Forms.DataGridView dgvDetailSP;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnAddRow;
+        private System.Windows.Forms.Button btnDeleteRow;
     }
 }
