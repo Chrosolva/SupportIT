@@ -211,6 +211,7 @@
             this.dgvInventaris.Name = "dgvInventaris";
             this.dgvInventaris.Size = new System.Drawing.Size(1199, 283);
             this.dgvInventaris.TabIndex = 0;
+            this.dgvInventaris.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvInventaris_CellContentDoubleClick);
             // 
             // FrmPilihInventaris
             // 

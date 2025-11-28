@@ -250,6 +250,12 @@
     <Compile Include="View\Inventaris\FrmSuratPerbaikanEdit.Designer.cs">
       <DependentUpon>FrmSuratPerbaikanEdit.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\Inventaris\FrmSuratPerbaikanHistory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Inventaris\FrmSuratPerbaikanHistory.Designer.cs">
+      <DependentUpon>FrmSuratPerbaikanHistory.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\Kebun\FormInputEditKebun.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -387,6 +393,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\Inventaris\FrmSuratPerbaikanEdit.resx">
       <DependentUpon>FrmSuratPerbaikanEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Inventaris\FrmSuratPerbaikanHistory.resx">
+      <DependentUpon>FrmSuratPerbaikanHistory.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Kebun\FormInputEditKebun.resx">
       <DependentUpon>FormInputEditKebun.cs</DependentUpon>

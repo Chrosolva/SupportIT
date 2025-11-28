@@ -32,38 +32,33 @@ namespace SupportIT
         }
 
         // ------------ BLUE (CALM, DARK) ------------
-        // Desaturated slate/blue palette chosen to reduce eye strain:
-        // - Soft contrasts, no neon blues
-        // - Muted grid lines to avoid visual noise
-        // - High-contrast text without harsh whites
         public static readonly GridTheme BlueCalmDark = new GridTheme
         {
             // Surfaces
-            Surface = Color.FromArgb(12, 16, 24),  // #0C1018 deep slate-blue
-            SurfaceAlt = Color.FromArgb(14, 20, 28),  // slightly lighter for striping
+            Surface = Color.FromArgb(12, 16, 24),
+            SurfaceAlt = Color.FromArgb(14, 20, 28),
 
             // Text
-            TextPrimary = Color.FromArgb(228, 235, 245), // off-white with blue tint
-            TextSecondary = Color.FromArgb(168, 180, 196), // muted steel
+            TextPrimary = Color.FromArgb(228, 235, 245),
+            TextSecondary = Color.FromArgb(168, 180, 196),
 
             // Headers
-            HeaderBack = Color.FromArgb(24, 34, 48), // slate-800-ish
+            HeaderBack = Color.FromArgb(24, 34, 48),
             HeaderText = Color.White,
-            ReadonlyHeaderBack = Color.FromArgb(32, 48, 72), // slightly brighter to hint "locked"
+            ReadonlyHeaderBack = Color.FromArgb(32, 48, 72),
 
             // Lines
-            GridLines = Color.FromArgb(28, 40, 56), // soft separators
+            GridLines = Color.FromArgb(28, 40, 56),
 
-            // Selection (translucent blue over row)
-            // Note: Color.FromArgb(A,R,G,B) with A < 140 to keep it gentle
-            SelectionBack = Color.FromArgb(120, 59, 130, 246), // ~#3B82F6 @ ~47% alpha
+            // Selection
+            SelectionBack = Color.FromArgb(120, 59, 130, 246),
             SelectionText = Color.White,
 
             // Readonly cells
             ReadonlyBack = Color.FromArgb(18, 26, 38),
 
             // Accent / focus outline
-            Accent = Color.FromArgb(59, 130, 246), // #3B82F6 (tempered by translucent use)
+            Accent = Color.FromArgb(59, 130, 246),
 
             // Fonts
             BodyFont = new Font("Segoe UI", 10f, FontStyle.Regular),
@@ -85,7 +80,7 @@ namespace SupportIT
             HeaderBack = Color.FromArgb(19, 78, 74),
             HeaderText = Color.White,
             GridLines = Color.FromArgb(28, 54, 51),
-            SelectionBack = Color.FromArgb(151, 249, 115, 22), // A=151 over Orange500
+            SelectionBack = Color.FromArgb(151, 249, 115, 22),
             SelectionText = Color.White,
             ReadonlyBack = Color.FromArgb(24, 48, 45),
             ReadonlyHeaderBack = Color.FromArgb(15, 118, 110),
@@ -101,15 +96,15 @@ namespace SupportIT
         public static readonly GridTheme BlueCalmLight = new GridTheme
         {
             // Base surfaces
-            Surface = Color.FromArgb(248, 250, 255),   // very soft white with blue tint
-            SurfaceAlt = Color.FromArgb(240, 244, 252),   // alternate rows
+            Surface = Color.FromArgb(248, 250, 255),
+            SurfaceAlt = Color.FromArgb(240, 244, 252),
 
             // Text
-            TextPrimary = Color.FromArgb(30, 40, 55),      // near black-blue
-            TextSecondary = Color.FromArgb(90, 100, 120),    // muted gray-blue
+            TextPrimary = Color.FromArgb(30, 40, 55),
+            TextSecondary = Color.FromArgb(90, 100, 120),
 
             // Headers
-            HeaderBack = Color.FromArgb(222, 230, 245), // soft blue-gray
+            HeaderBack = Color.FromArgb(222, 230, 245),
             HeaderText = Color.FromArgb(25, 40, 65),
             ReadonlyHeaderBack = Color.FromArgb(210, 225, 245),
 
@@ -117,16 +112,14 @@ namespace SupportIT
             GridLines = Color.FromArgb(220, 225, 235),
 
             // Selection
-            // In BlueCalmLight
-            SelectionBack = Color.FromArgb(210, 227, 255), // soft opaque blue highlight
-            SelectionText = Color.FromArgb(25, 40, 65),    // readable on light blue
-
+            SelectionBack = Color.FromArgb(210, 227, 255),
+            SelectionText = Color.FromArgb(25, 40, 65),
 
             // Readonly cells
             ReadonlyBack = Color.FromArgb(235, 238, 245),
 
             // Accent
-            Accent = Color.FromArgb(59, 130, 246), // same blue accent
+            Accent = Color.FromArgb(59, 130, 246),
 
             // Fonts
             BodyFont = new Font("Segoe UI", 10f, FontStyle.Regular),
@@ -141,36 +134,74 @@ namespace SupportIT
 
         // ------------ PUBLIC API (old-call compatible) ------------
 
-        // Original simple signature (now defaults to the Blue theme)
+        // Default: BlueCalmLight theme
         public static void ApplyDefaultStyle(DataGridView dgv)
         {
             ApplyDefaultStyleInternal(dgv, BlueCalmLight, true, false);
         }
 
-        // Original signature with flags (now defaults to the Blue theme)
-        public static void ApplyDefaultStyle(DataGridView dgv, bool readOnly = true, bool multiSelect = false)
+        public static void ApplyDefaultStyle(DataGridView dgv, bool readOnly, bool multiSelect)
         {
             ApplyDefaultStyleInternal(dgv, BlueCalmLight, readOnly, multiSelect);
         }
 
-        // Themed version with a different name to avoid overload ambiguity
-        public static void ApplyDefaultStyleThemed(DataGridView dgv, GridTheme theme, bool readOnly = true, bool multiSelect = false)
+        public static void ApplyDefaultStyleThemed(DataGridView dgv, GridTheme theme, bool readOnly, bool multiSelect)
         {
             if (theme == null) theme = BlueCalmDark;
             ApplyDefaultStyleInternal(dgv, theme, readOnly, multiSelect);
         }
 
+        /// <summary>
+        /// MODE 1 (COMPACT): auto-fit columns to content once, with max width clamp.
+        /// Good for dense, compact grids – some long text may still truncate.
+        /// </summary>
         public static void FitOnceThenUnlock(DataGridView dgv)
         {
             if (dgv == null || dgv.Columns.Count == 0) return;
 
-            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            const int minWidth = 56;
+            const int maxWidth = 420;
+            const int extraPadding = 12;
+
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            dgv.PerformLayout();
+
             foreach (DataGridViewColumn c in dgv.Columns)
             {
+                int w = c.Width + extraPadding;
+                if (w < minWidth) w = minWidth;
+                if (w > maxWidth) w = maxWidth;
+
+                c.MinimumWidth = minWidth; // safety so they never collapse
+                c.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                c.Width = w;
                 c.Resizable = DataGridViewTriState.True;
-                c.MinimumWidth = 60;
             }
+
             dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+            dgv.ScrollBars = ScrollBars.Both;
+        }
+
+        /// <summary>
+        /// MODE 2 (FULL CONTENT, SAFE): use AllCells autosizing.
+        /// Lets DataGridView compute widths so full content is visible.
+        /// Horizontal scroll will appear when needed.
+        /// </summary>
+        public static void EnableFullContentSizing(DataGridView dgv)
+        {
+            if (dgv == null) return;
+
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dgv.ScrollBars = ScrollBars.Both;
+            dgv.PerformLayout();
+
+            // Optional: set a reasonable minimum so columns don't collapse
+            foreach (DataGridViewColumn c in dgv.Columns)
+            {
+                if (c.MinimumWidth < 40)
+                    c.MinimumWidth = 40;
+                c.Resizable = DataGridViewTriState.True;
+            }
         }
 
         public static void StyleReadOnlyColumns(DataGridView dgv, params string[] columnNames)
@@ -191,7 +222,8 @@ namespace SupportIT
                 col.DefaultCellStyle.BackColor = theme.ReadonlyBack;
                 col.DefaultCellStyle.ForeColor = theme.TextSecondary;
 
-                if (!string.IsNullOrEmpty(col.HeaderText) && col.HeaderText.IndexOf("🔒", StringComparison.Ordinal) < 0)
+                if (!string.IsNullOrEmpty(col.HeaderText) &&
+                    col.HeaderText.IndexOf("🔒", StringComparison.Ordinal) < 0)
                 {
                     col.HeaderText = "🔒 " + col.HeaderText;
                 }
@@ -234,9 +266,14 @@ namespace SupportIT
             // Row Style
             dgv.DefaultCellStyle.BackColor = theme.Surface;
             dgv.DefaultCellStyle.ForeColor = theme.TextPrimary;
-            dgv.DefaultCellStyle.SelectionBackColor = theme.SelectionBack;
+
+            // Ensure selection color is opaque (alpha can cause black on some systems)
+            Color sel = theme.SelectionBack;
+            if (sel.A != 255) sel = Color.FromArgb(255, sel.R, sel.G, sel.B);
+
+            dgv.DefaultCellStyle.SelectionBackColor = sel;
             dgv.DefaultCellStyle.SelectionForeColor = theme.SelectionText;
-            dgv.DefaultCellStyle.WrapMode = DataGridViewTriState.False;
+            dgv.DefaultCellStyle.WrapMode = DataGridViewTriState.False; // keep rows compact
 
             dgv.AlternatingRowsDefaultCellStyle.BackColor = theme.SurfaceAlt;
             dgv.AlternatingRowsDefaultCellStyle.ForeColor = theme.TextPrimary;
@@ -260,7 +297,7 @@ namespace SupportIT
             dgv.GridColor = theme.GridLines;
 
             // Behavior
-            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None; // we choose mode after binding
             dgv.AllowUserToAddRows = false;
             dgv.AllowUserToDeleteRows = false;
             dgv.AllowUserToResizeColumns = true;
@@ -268,8 +305,9 @@ namespace SupportIT
             dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
             dgv.ReadOnly = readOnly;
-            dgv.EditMode = readOnly ? DataGridViewEditMode.EditProgrammatically
-                                    : DataGridViewEditMode.EditOnEnter;
+            dgv.EditMode = readOnly
+                ? DataGridViewEditMode.EditProgrammatically
+                : DataGridViewEditMode.EditOnEnter;
 
             // Focus cue (accent outline)
             AttachFocusCueHandlers(dgv, theme);
@@ -284,9 +322,12 @@ namespace SupportIT
         {
             try
             {
-                typeof(DataGridView).InvokeMember("DoubleBuffered",
+                typeof(DataGridView).InvokeMember(
+                    "DoubleBuffered",
                     BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty,
-                    null, dgv, new object[] { true });
+                    null,
+                    dgv,
+                    new object[] { true });
             }
             catch
             {
@@ -303,12 +344,11 @@ namespace SupportIT
 
         private static void AttachFocusCueHandlers(DataGridView dgv, GridTheme theme)
         {
-            // Reuse Tag slot only if it's ours
-            FocusHandlers fh = dgv.Tag as FocusHandlers;
-            if (fh != null)
+            FocusHandlers existing = dgv.Tag as FocusHandlers;
+            if (existing != null)
                 return;
 
-            fh = new FocusHandlers();
+            FocusHandlers fh = new FocusHandlers();
 
             fh.PaintHandler = delegate (object sender, PaintEventArgs e)
             {
@@ -317,7 +357,8 @@ namespace SupportIT
                     using (Pen pen = new Pen(theme.Accent, 2))
                     {
                         Rectangle r = dgv.ClientRectangle;
-                        r.Width -= 1; r.Height -= 1;
+                        r.Width -= 1;
+                        r.Height -= 1;
                         e.Graphics.DrawRectangle(pen, r);
                     }
                 }

@@ -100,7 +100,7 @@ namespace SupportIT.View.Inventaris
             cbKodePT.SelectedIndex = 0;
 
             // Set PIC (read-only textBox1) to current user
-            textBox1.Text = ControllerStaticVariables.controllerUser.user.UserID;
+            textBox1.Text = ControllerStaticVariables.currentuser.UserID;
 
             _details = new BindingList<TblDetailSuratPerbaikan>();
 
@@ -522,14 +522,23 @@ namespace SupportIT.View.Inventaris
                 {
                     bool isNew = !SPId.HasValue;
                     TblSuratPerbaikan header;
+                    TblSuratPerbaikan originalHeader = null;
+
+                    if (!isNew)
+                    {
+                        // Get a fresh copy from DB (detached)
+                        originalHeader = _db.SuratPerbaikans
+                                            .AsNoTracking()
+                                            .First(x => x.SPId == SPId.Value);
+                    }
 
                     if (isNew)
                     {
                         header = new TblSuratPerbaikan
                         {
-                            CreatedAt = DateTime.UtcNow,
-                            CreatedBy = ControllerStaticVariables.controllerUser.user.UserID
-                        };
+                            CreatedAt = DateTime.Now,
+                            CreatedBy = ControllerStaticVariables.currentuser.UserID
+                    };
                         _db.SuratPerbaikans.Add(header);
                     }
                     else
@@ -543,10 +552,10 @@ namespace SupportIT.View.Inventaris
                     header.Kepada = txtKepada.Text.Trim();
                     header.Lokasi = txtLokasi.Text.Trim();
                     header.Status = cbStatus.SelectedItem.ToString();
-                    header.PIC = ControllerStaticVariables.controllerUser.user.UserID;
+                    header.PIC = ControllerStaticVariables.currentuser.UserID;
                     header.KodePT = cbKodePT.SelectedItem?.ToString();
-                    header.UpdatedAt = DateTime.UtcNow;
-                    header.UpdatedBy = ControllerStaticVariables.controllerUser.user.UserID;
+                    header.UpdatedAt = DateTime.Now;
+                    header.UpdatedBy = ControllerStaticVariables.currentuser.UserID;
 
                     // Persist header and get SPId
                     _db.SaveChanges();
@@ -557,11 +566,18 @@ namespace SupportIT.View.Inventaris
                     {
                         var existingDetails = _db.DetailSuratPerbaikans.Where(d => d.SPId == SPId.Value).ToList();
                         _db.DetailSuratPerbaikans.RemoveRange(existingDetails);
+
+                        
                     }
 
-                    // Add detail rows
+
+                    // Add detail rows (skip helper blank row)
                     foreach (var row in _details)
                     {
+                        // skip pure blank helper row
+                        if (IsBlankDetailRow(row))
+                            continue;
+
                         var det = new TblDetailSuratPerbaikan
                         {
                             SPId = header.SPId,
@@ -571,13 +587,14 @@ namespace SupportIT.View.Inventaris
                             Jumlah = row.Jumlah,
                             Satuan = row.Satuan,
                             Keterangan = row.Keterangan,
-                            CreatedAt = DateTime.UtcNow,
-                            CreatedBy = ControllerStaticVariables.controllerUser.user.UserID,
-                            UpdatedAt = DateTime.UtcNow,
-                            UpdatedBy = ControllerStaticVariables.controllerUser.user.UserID
-                        };
+                            CreatedAt = DateTime.Now,
+                            CreatedBy = ControllerStaticVariables.currentuser.UserID,
+                            UpdatedAt = DateTime.Now,
+                            UpdatedBy = ControllerStaticVariables.currentuser.UserID
+                    };
                         _db.DetailSuratPerbaikans.Add(det);
                     }
+
 
                     // Write log
                     if (isNew)
@@ -587,19 +604,19 @@ namespace SupportIT.View.Inventaris
                             SPId = header.SPId,
                             EventType = "CREATED",
                             EventAt = DateTime.UtcNow,
-                            EventBy = ControllerStaticVariables.controllerUser.user.UserID
-                        });
+                            EventBy = ControllerStaticVariables.currentuser.UserID
+                    });
                     }
-                    else if (header.Status != cbStatus.SelectedItem.ToString())
+                    else if (!isNew && originalHeader != null)
                     {
-                        _db.SuratPerbaikanLogs.Add(new TblSuratPerbaikanLog
-                        {
-                            SPId = header.SPId,
-                            EventType = "STATUS_CHANGED",
-                            EventAt = DateTime.UtcNow,
-                            EventBy = ControllerStaticVariables.controllerUser.user.UserID,
-                            Note = $"From {header.Status} to {cbStatus.SelectedItem}"
-                        });
+                        LogChange("NoSP", originalHeader.NoSP, header.NoSP, header.SPId);
+                        LogChange("TglSP", originalHeader.TglSP.ToString("yyyy-MM-dd HH:mm:ss"),
+                                              header.TglSP.ToString("yyyy-MM-dd HH:mm:ss"), header.SPId);
+                        LogChange("Kepada", originalHeader.Kepada, header.Kepada, header.SPId);
+                        LogChange("Lokasi", originalHeader.Lokasi, header.Lokasi, header.SPId);
+                        LogChange("Status", originalHeader.Status, header.Status, header.SPId);
+                        LogChange("PIC", originalHeader.PIC, header.PIC, header.SPId);
+                        LogChange("KodePT", originalHeader.KodePT, header.KodePT, header.SPId);
                     }
 
                     _db.SaveChanges();
@@ -616,6 +633,43 @@ namespace SupportIT.View.Inventaris
                 }
             }
         }
+
+        public void LogChange(string fieldName, string oldValue, string newValue, int ID)
+        {
+            if (oldValue != newValue)
+            {
+                _db.SuratPerbaikanLogs.Add(new TblSuratPerbaikanLog
+                {
+                    SPId = ID,
+                    EventType = "UPDATED",
+                    EventAt = DateTime.UtcNow,
+                    EventBy = ControllerStaticVariables.currentuser.UserID,
+                    Note = $"{fieldName}: '{oldValue}' → '{newValue}'"
+                });
+            }
+        }
+
+        /// <summary>
+        /// Returns true if this detail row is just the blank helper row
+        /// and should NOT be saved.
+        /// KodeInventaris may be null (for items without code),
+        /// so we only treat as blank if ALL these are empty:
+        /// - KodeInventaris
+        /// - NamaBarang
+        /// - Keterangan
+        /// </summary>
+        private bool IsBlankDetailRow(TblDetailSuratPerbaikan row)
+        {
+            if (row == null) return true;
+
+            bool noKode = string.IsNullOrWhiteSpace(row.KodeInventaris);
+            bool noNama = string.IsNullOrWhiteSpace(row.NamaBarang);
+            bool noKet = string.IsNullOrWhiteSpace(row.Keterangan);
+
+            // Jumlah and Satuan are ignored here because you default them (1, "BH")
+            return noKode && noNama && noKet;
+        }
+
 
         private void btnCancel_Click(object sender, EventArgs e)
         {

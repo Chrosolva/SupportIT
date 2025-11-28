@@ -222,5 +222,10 @@ namespace SupportIT.View.Inventaris
         {
             DataGridViewHelper.ApplyDefaultStyleThemed(dgvInventaris, DataGridViewHelper.BlueCalmLight, true, false);
         }
+
+        private void dgvInventaris_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            BtnSelect_Click(null, null);
+        }
     }
 }

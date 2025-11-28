@@ -571,8 +571,10 @@
             // lstTimeline
             // 
             this.lstTimeline.FormattingEnabled = true;
+            this.lstTimeline.HorizontalScrollbar = true;
             this.lstTimeline.Location = new System.Drawing.Point(6, 258);
             this.lstTimeline.Name = "lstTimeline";
+            this.lstTimeline.ScrollAlwaysVisible = true;
             this.lstTimeline.Size = new System.Drawing.Size(315, 160);
             this.lstTimeline.TabIndex = 0;
             // 

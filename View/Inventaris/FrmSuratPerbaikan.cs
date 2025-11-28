@@ -33,12 +33,6 @@ namespace SupportIT.View.Inventaris
                 headerStyle: FontStyle.Bold
             );
 
-            // Apply to the main form (and all its current controls)
-            GlobalFontHelper.Apply(this, appFonts);
-            DataGridViewHelper.ApplyDefaultStyleThemed(dgvSuratPerbaikan, DataGridViewHelper.BlueCalmLight, true, true);
-            DataGridViewHelper.ApplyDefaultStyleThemed(dgvDetailSP, DataGridViewHelper.BlueCalmLight, true, true);
-            ButtonHelper.Apply(btnFilter, ButtonHelper.BlueCalmLight);
-
             _svc = new SuratPerbaikanService(new DBMISPEUKDContext());
 
             // initial filters
@@ -51,6 +45,18 @@ namespace SupportIT.View.Inventaris
 
             LoadHeaders();
             dgvSuratPerbaikan.SelectionChanged += dgvSuratPerbaikan_SelectionChanged;
+            dgvSuratPerbaikan.DataError += Dgv_DataError;
+            dgvDetailSP.DataError += Dgv_DataError;
+
+
+
+            // Apply to the main form (and all its current controls)
+            GlobalFontHelper.Apply(this, appFonts);
+            DataGridViewHelper.ApplyDefaultStyleThemed(dgvSuratPerbaikan, DataGridViewHelper.BlueCalmLight, true, true);
+            DataGridViewHelper.EnableFullContentSizing(dgvSuratPerbaikan);
+            DataGridViewHelper.ApplyDefaultStyleThemed(dgvDetailSP, DataGridViewHelper.BlueCalmLight, true, true);
+            DataGridViewHelper.EnableFullContentSizing(dgvDetailSP);
+            ButtonHelper.Apply(btnFilter, ButtonHelper.BlueCalmLight);
 
         }
 
@@ -64,9 +70,46 @@ namespace SupportIT.View.Inventaris
             dgvSuratPerbaikan.AutoGenerateColumns = true; // or configure columns manually
             dgvSuratPerbaikan.DataSource = list;
 
+            // Hide RowVer (byte[] / rowversion) column so grid doesn’t try to format it as an image
+            if (dgvSuratPerbaikan.Columns["RowVer"] != null)
+                dgvSuratPerbaikan.Columns["RowVer"].Visible = false;
+
             if (list.Any())
                 dgvSuratPerbaikan.Rows[0].Selected = true;
+
+            HideHeaderColumns();
         }
+
+        private void HideHeaderColumns()
+        {
+            string[] hide =
+            {
+                "SPId", "RowVer",
+                "ValidFrom", "ValidTo"
+            };
+
+            foreach (var col in hide)
+            {
+                if (dgvSuratPerbaikan.Columns.Contains(col))
+                    dgvSuratPerbaikan.Columns[col].Visible = false;
+            }
+        }
+
+        private void HideDetailColumns()
+        {
+            string[] hide =
+            {
+                "SPId", "RowVer",
+                "ValidFrom", "ValidTo", "Surat"
+            };
+
+            foreach (var col in hide)
+            {
+                if (dgvDetailSP.Columns.Contains(col))
+                    dgvDetailSP.Columns[col].Visible = false;
+            }
+        }
+
 
         private void dgvSuratPerbaikan_SelectionChanged(object sender, EventArgs e)
         {
@@ -89,13 +132,25 @@ namespace SupportIT.View.Inventaris
             // detail grid
             dgvDetailSP.AutoGenerateColumns = true;
             dgvDetailSP.DataSource = _svc.GetDetails(_current.SPId);
+            HideDetailColumns();
+
+            // Hide RowVer in detail grid too
+            if (dgvDetailSP.Columns["RowVer"] != null)
+                dgvDetailSP.Columns["RowVer"].Visible = false;
 
             // timeline list (top 10)
             var evts = _svc.GetTimeline(_current.SPId, 10);
             lstTimeline.Items.Clear();
             foreach (var e2 in evts.OrderBy(x => x.EventAt))
-                lstTimeline.Items.Add($"[{e2.EventAt:yyyy-MM-dd HH:mm}] {e2.EventType} by {e2.EventBy} {(string.IsNullOrEmpty(e2.Note) ? "" : ("- " + e2.Note))}");
+                lstTimeline.Items.Add($"[{e2.EventAt:yyyy-MM-dd HH:mm:ss}] {e2.EventType} by {e2.EventBy} {(string.IsNullOrEmpty(e2.Note) ? "" : ("- " + e2.Note))}");
         }
+
+        private void Dgv_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            // Don’t show the default dialog
+            e.ThrowException = false;
+        }
+
 
         private void btnFilter_Click(object sender, EventArgs e) => LoadHeaders();
 
